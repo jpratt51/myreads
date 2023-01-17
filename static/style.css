@@ -1,0 +1,357 @@
+body {
+    /* background-color: #FAF9F6; */
+    background-color:#FAF9F6  !important;
+}
+
+#navbar-brand {
+    color: white;
+    font-family: 'Montserrat Alternates', sans-serif;
+}
+
+.header {
+    font-family: 'Montserrat Alternates', sans-serif;
+    margin-top: .5em;
+    font-size: 8vw;
+}
+
+@media screen and (max-width: 400px) {
+    .lead-text {
+        font-size: 4vw;
+        text-align: center;
+        font-family: 'Lexend Deca', sans-serif;
+    }
+
+    .body-text {
+        font-size: 3.5vw;
+        text-align: center;
+        font-family: 'Lexend Deca', sans-serif;
+    }
+
+    .bookshelf-text {
+        font-size: 3.5vw;
+        text-align: center;
+        font-family: 'Lexend Deca', sans-serif;
+    }
+
+    .book-img-header {
+        width: 10vw;
+        margin: 0em 0em .2em .2em;
+    }
+
+    .book-img {
+        width: 10vw;
+    }
+
+    .book-details-img {
+        width: 5vw;
+    }
+
+    .bookshelf {
+        color: white;
+        width: 100vw;
+        margin: 1em;
+        text-align: left;
+    }
+}
+
+@media screen and (min-width: 400px) {
+    .lead-text {
+        font-size: 1.75vw;
+        text-align: center;
+        font-family: 'Lexend Deca', sans-serif;
+    }
+
+    .body-text {
+        font-size: 1.5vw;
+        text-align: center;
+        font-family: 'Lexend Deca', sans-serif;
+    }
+
+    .book-img-header {
+        width: 10vw;
+        margin: 0em 0em .2em .2em;
+    }
+
+    .book-img {
+        width: 5vw;
+    }
+
+    .book-details-img {
+        width: 3vw;
+    }
+
+    .bookshelf {
+        color: white;
+        width: 100vw;
+        margin: 1em auto 1em auto;
+    }
+
+    .profile-cards {
+        margin-bottom: 2rem;
+        margin: auto;
+        text-align: left;
+        
+    }
+}
+
+.book {
+    display: block;
+    margin-top: 3em;
+    margin-bottom: 3em;
+    width: 75vw;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: left;
+}
+
+.book-details {
+    /* margin: auto; */
+}
+
+.book-title {
+    font-weight: 900;
+}
+
+.book-author {
+    font-style: italic;
+}
+
+.favorite {
+    color: white;
+}
+
+.favorite-card {
+    width: 75vw;
+    margin: .5rem auto .5rem auto;
+    text-align: left;
+}
+
+.favorites-btn {
+    text-align: center;
+    font-size: 2vw;
+}
+
+.favorites-lead {
+    margin-top: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.btn {
+    margin-top: .5em;
+    margin-bottom: .5em;
+}
+
+.review-cards, .add-bookshelf-book-btn {
+    margin-bottom: 3em;
+}
+
+.review-cards {
+    width: 50vw;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.profile-card {
+    margin-bottom: 2rem;
+    max-width: 100vw;
+    margin: auto;
+    text-align: left;
+}
+
+.review {
+    background-color:black;
+    color:white;
+}
+
+.rating {
+    background-color:grey;
+    color:white;
+}
+
+.read-date {
+    background-color:white;
+    color:black;
+    width: 25rem;
+    margin: 3em auto 3em auto;
+}
+
+.read-dates {
+    background-color:white;
+    color:black;
+}
+
+.star-field {
+    margin: auto;
+}
+
+.star {
+    visibility: visible;
+}
+
+.star-title {
+    margin: 2em .5em 1em 0;
+    font-size: 1.5em;
+}
+
+.bookshelf-img {
+    width: 5%;
+}
+
+.bookshelf-img-header {
+    width: 10%;
+    margin: 0em 0em .45em .2em;
+}
+
+.background-img {
+    width: 100%;
+    position: absolute;
+}
+
+.background-img-container {
+    width: 100%;
+    height: 5vw;
+    overflow: hidden;
+    position: relative;
+}
+
+.profile-img {
+    width: 10%;
+}
+
+.card-deck {
+    margin-bottom: .5rem;
+}
+
+.favorite-authors {
+    background-color: black;
+}
+
+.favorite-subjects {
+    background-color: black;
+    color: white;
+}
+
+.profile-book {
+    width: 15%;
+    height: 15%;
+    margin: 0rem 3rem 3rem 3rem;
+}
+
+.profile-review {
+    color: white;
+}
+
+.form {
+    margin: 2rem 2rem 2rem 0rem;
+    max-width: 50vw;
+    display: inline-block;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: left;
+}
+
+.review-btn, .review-date {
+    margin: .5rem;
+}
+
+.review-container {
+    width: 50%;
+    margin: auto;
+}
+
+@media screen and (max-width: 400px) {
+    .star-container {
+        margin: auto;
+        width: 70vw;
+    }
+}
+
+@media screen and (min-width: 400px) {
+    .star-container {
+        margin: auto;
+        width: 25vw;
+    }
+}
+
+.form-container {
+    display: block;
+    text-align: center;
+}
+
+.header {
+    text-align: center;
+}
+
+.center {
+    text-align:center;
+}
+
+.center-profile-card {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 200px;
+    border: 3px solid green;
+  }
+
+.profile-card {
+    margin: auto;
+    margin-bottom: 3em;
+    width: 23rem;
+}
+
+.review-header {
+    text-decoration: underline;
+}
+
+.align-left {
+    text-align: center;
+    margin: 4em auto 2em auto;
+}
+
+@media screen and (max-width: 400px) {
+    .width {
+        width: 50%;
+    }
+}
+
+@media screen and (min-width: 400px) {
+    .width {
+        width: 25%;
+    }
+}
+
+
+.star-border {
+    border: 1px solid #5cb85c;
+    border-radius: 5px;
+    padding: .5rem;
+    margin-bottom:2rem;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+
+.find-books-btn {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.profile-header {
+    font-size: 8vw;
+}
+
+@media screen and (min-width: 400px) {
+    .nav-text {
+        font-size:1.25vw;
+    }
+}
+
+@media screen and (max-width: 400px) {
+    .nav-text {
+        font-size:4vw;
+    }
+}
+
+
+

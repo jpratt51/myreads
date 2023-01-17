@@ -1,0 +1,31 @@
+{% extends 'base.html'  %}
+{% block title %}findbooks.{% endblock %}
+{% block content %}
+
+<h1 class="header">findbooks.<img src="https://i.ibb.co/nRR4rd4/book-img.png" alt="book-img" class="book-img-header"></h1>
+<p class="body-text">Find books you've read or your next great read here.</p>
+<div class="form-container">
+  <p class="body-text">Search for books by author or title (or both)</p>
+  <form method="POST" class="body-text form">
+
+    {{ form.hidden_tag() }}
+  
+    {% for field in form
+      if field.widget.input_type != 'hidden' %}
+    <p>
+      {{ field.label }}
+      {{ field(class_="form-control") }}
+  
+      {% for error in field.errors %}
+      <span class="form-text text-danger body-text">{{ error }}</span>
+      {% endfor %}
+    </p>
+    {% endfor %}
+  
+    <button class="btn btn-primary btn-sm body-text" type="submit">Search</button>
+    <br><a href="/book/add-book">Can't find what you're looking for? Click here to add book manually</a>
+  </form>
+</div>
+  {% block find_books %}
+  {% endblock %}
+{% endblock %}

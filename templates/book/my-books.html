@@ -1,0 +1,434 @@
+{% extends 'base.html'  %}
+{% block title %}mybooks.{% endblock %}
+{% block content %}
+
+<h1 class="header">mybooks.<img src="https://i.ibb.co/nRR4rd4/book-img.png" alt="book-img" class="book-img-header"></h1>
+<p class="lead body-text">View and delete your books here.</p>
+  <div class="form-container">
+    <p class="body-text">Search your books by author or title (or both)</p>
+    <form method="POST" class="form">
+
+      {{ form.hidden_tag() }}
+    
+      {% for field in form
+        if field.widget.input_type != 'hidden' %}
+      <p class="body-text">
+        {{ field.label }}
+        {{ field(class_="form-control") }}
+    
+        {% for error in field.errors %}
+        <span class="form-text text-danger body-text">{{ error }}</span>
+        {% endfor %}
+      </p>
+      {% endfor %}
+    
+      <button class="btn btn-success btn-sm body-text" type="submit">Search</button>
+    </form>
+  </div>
+  {% if not user.books %}
+  <p class="body-text">You haven't added any books yet! Go to Find Books located in the nav bar to add books to your library.</p>
+  {% endif %}
+  {% if books %}
+  <div class="card-deck body-text">
+    {% for book in books[:4] %}
+    <div class="card book">
+      <div class="card-body" style="background-color:{{book.color}}">
+        <h5 class="card-title book-title"><img src="https://i.postimg.cc/25g7DvGg/white-book-cover.png" alt="" class="book-img"> {{book.title}}</h5>
+        <p class="card-text book-author">
+          by {{book.author}}
+        </p>
+        <p class="card-text">
+          {% if book.subject != 'Not Found' %}
+          Subject(s): {{book.subject}} | 
+          {% endif %}
+          Publish Year: {{book.publish_year}}
+        </p>
+        <a href="/book/book-details/{{book.id}}" class="btn btn-outline-dark btn-sm">Edit Book</a>
+        <a href="/delete-book/{{book.id}}" class="btn btn-outline-danger btn-sm">Delete</a>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+  <div class="card-deck body-text">
+    {% for book in books[4:8] %}
+    <div class="card book">
+      <div class="card-body" style="background-color:{{book.color}}">
+        <h5 class="card-title book-title"><img src="https://i.postimg.cc/25g7DvGg/white-book-cover.png" alt="" class="book-img"> {{book.title}}</h5>
+        <p class="card-text book-author">
+          by {{book.author}}
+        </p>
+        <p class="card-text">
+          {% if book.subject != 'Not Found' %}
+          Subject(s): {{book.subject}} | 
+          {% endif %}
+          Publish Year: {{book.publish_year}}
+        </p>
+        <a href="/book/book-details/{{book.id}}" class="btn btn-outline-dark btn-sm">Edit Book</a>
+        <a href="/delete-book/{{book.id}}" class="btn btn-outline-danger btn-sm">Delete</a>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+  <div class="card-deck body-text">
+    {% for book in books[8:12] %}
+    <div class="card book">
+      <div class="card-body" style="background-color:{{book.color}}">
+        <h5 class="card-title book-title"><img src="https://i.postimg.cc/25g7DvGg/white-book-cover.png" alt="" class="book-img"> {{book.title}}</h5>
+        <p class="card-text book-author">
+          by {{book.author}}
+        </p>
+        <p class="card-text">
+          {% if book.subject != 'Not Found' %}
+          Subject(s): {{book.subject}} | 
+          {% endif %}
+          Publish Year: {{book.publish_year}}
+        </p>
+        <a href="/book/book-details/{{book.id}}" class="btn btn-outline-dark btn-sm">Edit Book</a>
+        <a href="/delete-book/{{book.id}}" class="btn btn-outline-danger btn-sm">Delete</a>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+  <div class="card-deck body-text">
+    {% for book in books[12:16] %}
+    <div class="card book">
+      <div class="card-body" style="background-color:{{book.color}}">
+        <h5 class="card-title book-title"><img src="https://i.postimg.cc/25g7DvGg/white-book-cover.png" alt="" class="book-img"> {{book.title}}</h5>
+        <p class="card-text book-author">
+          by {{book.author}}
+        </p>
+        <p class="card-text">
+          {% if book.subject != 'Not Found' %}
+          Subject(s): {{book.subject}} | 
+          {% endif %}
+          Publish Year: {{book.publish_year}}
+        </p>
+        <a href="/book/book-details/{{book.id}}" class="btn btn-outline-dark btn-sm">Edit Book</a>
+        <a href="/delete-book/{{book.id}}" class="btn btn-outline-danger btn-sm">Delete</a>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+  <div class="card-deck body-text">
+    {% for book in books[16:20] %}
+    <div class="card book">
+      <div class="card-body" style="background-color:{{book.color}}">
+        <h5 class="card-title book-title"><img src="https://i.postimg.cc/25g7DvGg/white-book-cover.png" alt="" class="book-img"> {{book.title}}</h5>
+        <p class="card-text book-author">
+          by {{book.author}}
+        </p>
+        <p class="card-text">
+          {% if book.subject != 'Not Found' %}
+          Subject(s): {{book.subject}} | 
+          {% endif %}
+          Publish Year: {{book.publish_year}}
+        </p>
+        <a href="/book/book-details/{{book.id}}" class="btn btn-outline-dark btn-sm">Edit Book</a>
+        <a href="/delete-book/{{book.id}}" class="btn btn-outline-danger btn-sm">Delete</a>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+  <div class="card-deck body-text">
+    {% for book in books[20:24] %}
+    <div class="card book">
+      <div class="card-body" style="background-color:{{book.color}}">
+        <h5 class="card-title book-title"><img src="https://i.postimg.cc/25g7DvGg/white-book-cover.png" alt="" class="book-img"> {{book.title}}</h5>
+        <p class="card-text book-author">
+          by {{book.author}}
+        </p>
+        <p class="card-text">
+          {% if book.subject != 'Not Found' %}
+          Subject(s): {{book.subject}} | 
+          {% endif %}
+          Publish Year: {{book.publish_year}}
+        </p>
+        <a href="/book/book-details/{{book.id}}" class="btn btn-outline-dark btn-sm">Edit Book</a>
+        <a href="/delete-book/{{book.id}}" class="btn btn-outline-danger btn-sm">Delete</a>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+  <div class="card-deck body-text">
+    {% for book in books[24:28] %}
+    <div class="card book">
+      <div class="card-body" style="background-color:{{book.color}}">
+        <h5 class="card-title book-title"><img src="https://i.postimg.cc/25g7DvGg/white-book-cover.png" alt="" class="book-img"> {{book.title}}</h5>
+        <p class="card-text book-author">
+          by {{book.author}}
+        </p>
+        <p class="card-text">
+          {% if book.subject != 'Not Found' %}
+          Subject(s): {{book.subject}} | 
+          {% endif %}
+          Publish Year: {{book.publish_year}}
+        </p>
+        <a href="/book/book-details/{{book.id}}" class="btn btn-outline-dark btn-sm">Edit Book</a>
+        <a href="/delete-book/{{book.id}}" class="btn btn-outline-danger btn-sm">Delete</a>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+  <div class="card-deck body-text">
+    {% for book in books[28:32] %}
+    <div class="card book">
+      <div class="card-body" style="background-color:{{book.color}}">
+        <h5 class="card-title book-title"><img src="https://i.postimg.cc/25g7DvGg/white-book-cover.png" alt="" class="book-img"> {{book.title}}</h5>
+        <p class="card-text book-author">
+          by {{book.author}}
+        </p>
+        <p class="card-text">
+          {% if book.subject != 'Not Found' %}
+          Subject(s): {{book.subject}} | 
+          {% endif %}
+          Publish Year: {{book.publish_year}}
+        </p>
+        <a href="/book/book-details/{{book.id}}" class="btn btn-outline-dark btn-sm">Edit Book</a>
+        <a href="/delete-book/{{book.id}}" class="btn btn-outline-danger btn-sm">Delete</a>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+  <div class="card-deck body-text">
+    {% for book in books[32:36] %}
+    <div class="card book">
+      <div class="card-body" style="background-color:{{book.color}}">
+        <h5 class="card-title book-title"><img src="https://i.postimg.cc/25g7DvGg/white-book-cover.png" alt="" class="book-img"> {{book.title}}</h5>
+        <p class="card-text book-author">
+          by {{book.author}}
+        </p>
+        <p class="card-text">
+          {% if book.subject != 'Not Found' %}
+          Subject(s): {{book.subject}} | 
+          {% endif %}
+          Publish Year: {{book.publish_year}}
+        </p>
+        <a href="/book/book-details/{{book.id}}" class="btn btn-outline-dark btn-sm">Edit Book</a>
+        <a href="/delete-book/{{book.id}}" class="btn btn-outline-danger btn-sm">Delete</a>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+  <div class="card-deck body-text">
+    {% for book in books[36:40] %}
+    <div class="card book">
+      <div class="card-body" style="background-color:{{book.color}}">
+        <h5 class="card-title book-title"><img src="https://i.postimg.cc/25g7DvGg/white-book-cover.png" alt="" class="book-img"> {{book.title}}</h5>
+        <p class="card-text book-author">
+          by {{book.author}}
+        </p>
+        <p class="card-text">
+          {% if book.subject != 'Not Found' %}
+          Subject(s): {{book.subject}} | 
+          {% endif %}
+          Publish Year: {{book.publish_year}}
+        </p>
+        <a href="/book/book-details/{{book.id}}" class="btn btn-outline-dark btn-sm">Edit Book</a>
+        <a href="/delete-book/{{book.id}}" class="btn btn-outline-danger btn-sm">Delete</a>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+  {% else %}
+  <div class="card-deck body-text">
+    {% for book in user.books[:4] %}
+        <div class="card book">
+          <div class="card-body" style="background-color:{{book.color}}">
+            <h5 class="card-title book-title"><img src="https://i.postimg.cc/25g7DvGg/white-book-cover.png" alt="" class="book-img"> <b>{{book.title}}</b></h5>
+            <p class="card-text book-author">
+              by {{book.author}}
+            </p>
+            <p class="card-text">
+              {% if book.subject != 'Not Found' %}
+              Subject(s): {{book.subject}} | 
+              {% endif %}
+              Publish Year: {{book.publish_year}}
+            </p>
+            <a href="/book/book-details/{{book.id}}" class="btn btn-outline-dark btn-sm">Edit Book</a>
+            <a href="/delete-book/{{book.id}}" class="btn btn-outline-danger btn-sm">Delete</a>
+          </div>
+        </div>
+    {% endfor %}
+  </div>
+  <div class="card-deck body-text">
+    {% for book in user.books[4:8] %}
+        <div class="card book">
+          <div class="card-body" style="background-color:{{book.color}}">
+            <h5 class="card-title book-title"><img src="https://i.postimg.cc/25g7DvGg/white-book-cover.png" alt="" class="book-img"> <b>{{book.title}}</b></h5>
+            <p class="card-text book-author">
+              by {{book.author}}
+            </p>
+            <p class="card-text">
+              {% if book.subject != 'Not Found' %}
+              Subject(s): {{book.subject}} | 
+              {% endif %}
+              Publish Year: {{book.publish_year}}
+            </p>
+            <a href="/book/book-details/{{book.id}}" class="btn btn-outline-dark btn-sm">Edit Book</a>
+            <a href="/delete-book/{{book.id}}" class="btn btn-outline-danger btn-sm">Delete</a>
+          </div>
+        </div>
+    {% endfor %}
+  </div>
+  <div class="card-deck body-text">
+    {% for book in user.books[8:12] %}
+        <div class="card book">
+          <div class="card-body" style="background-color:{{book.color}}">
+            <h5 class="card-title book-title"><img src="https://i.postimg.cc/25g7DvGg/white-book-cover.png" alt="" class="book-img"> <b>{{book.title}}</b></h5>
+            <p class="card-text book-author">
+              by {{book.author}}
+            </p>
+            <p class="card-text">
+              {% if book.subject != 'Not Found' %}
+              Subject(s): {{book.subject}} | 
+              {% endif %}
+              Publish Year: {{book.publish_year}}
+            </p>
+            <a href="/book/book-details/{{book.id}}" class="btn btn-outline-dark btn-sm">Edit Book</a>
+            <a href="/delete-book/{{book.id}}" class="btn btn-outline-danger btn-sm">Delete</a>
+          </div>
+        </div>
+    {% endfor %}
+  </div>
+  <div class="card-deck body-text">
+    {% for book in user.books[12:16] %}
+        <div class="card book">
+          <div class="card-body" style="background-color:{{book.color}}">
+            <h5 class="card-title book-title"><img src="https://i.postimg.cc/25g7DvGg/white-book-cover.png" alt="" class="book-img"> <b>{{book.title}}</b></h5>
+            <p class="card-text book-author">
+              by {{book.author}}
+            </p>
+            <p class="card-text">
+              {% if book.subject != 'Not Found' %}
+              Subject(s): {{book.subject}} | 
+              {% endif %}
+              Publish Year: {{book.publish_year}}
+            </p>
+            <a href="/book/book-details/{{book.id}}" class="btn btn-outline-dark btn-sm">Edit Book</a>
+            <a href="/delete-book/{{book.id}}" class="btn btn-outline-danger btn-sm">Delete</a>
+          </div>
+        </div>
+    {% endfor %}
+  </div>
+  <div class="card-deck body-text">
+    {% for book in user.books[16:20] %}
+        <div class="card book">
+          <div class="card-body" style="background-color:{{book.color}}">
+            <h5 class="card-title book-title"><img src="https://i.postimg.cc/25g7DvGg/white-book-cover.png" alt="" class="book-img"> <b>{{book.title}}</b></h5>
+            <p class="card-text book-author">
+              by {{book.author}}
+            </p>
+            <p class="card-text">
+              {% if book.subject != 'Not Found' %}
+              Subject(s): {{book.subject}} | 
+              {% endif %}
+              Publish Year: {{book.publish_year}}
+            </p>
+            <a href="/book/book-details/{{book.id}}" class="btn btn-outline-dark btn-sm">Edit Book</a>
+            <a href="/delete-book/{{book.id}}" class="btn btn-outline-danger btn-sm">Delete</a>
+          </div>
+        </div>
+    {% endfor %}
+  </div>
+  <div class="card-deck body-text">
+    {% for book in user.books[20:24] %}
+        <div class="card book">
+          <div class="card-body" style="background-color:{{book.color}}">
+            <h5 class="card-title book-title"><img src="https://i.postimg.cc/25g7DvGg/white-book-cover.png" alt="" class="book-img"> <b>{{book.title}}</b></h5>
+            <p class="card-text book-author">
+              by {{book.author}}
+            </p>
+            <p class="card-text">
+              {% if book.subject != 'Not Found' %}
+              Subject(s): {{book.subject}} | 
+              {% endif %}
+              Publish Year: {{book.publish_year}}
+            </p>
+            <a href="/book/book-details/{{book.id}}" class="btn btn-outline-dark btn-sm">Edit Book</a>
+            <a href="/delete-book/{{book.id}}" class="btn btn-outline-danger btn-sm">Delete</a>
+          </div>
+        </div>
+    {% endfor %}
+  </div>
+  <div class="card-deck body-text">
+    {% for book in user.books[24:28] %}
+        <div class="card book">
+          <div class="card-body" style="background-color:{{book.color}}">
+            <h5 class="card-title book-title"><img src="https://i.postimg.cc/25g7DvGg/white-book-cover.png" alt="" class="book-img"> <b>{{book.title}}</b></h5>
+            <p class="card-text book-author">
+              by {{book.author}}
+            </p>
+            <p class="card-text">
+              {% if book.subject != 'Not Found' %}
+              Subject(s): {{book.subject}} | 
+              {% endif %}
+              Publish Year: {{book.publish_year}}
+            </p>
+            <a href="/book/book-details/{{book.id}}" class="btn btn-outline-dark btn-sm">Edit Book</a>
+            <a href="/delete-book/{{book.id}}" class="btn btn-outline-danger btn-sm">Delete</a>
+          </div>
+        </div>
+    {% endfor %}
+  </div>
+  <div class="card-deck body-text">
+    {% for book in user.books[28:32] %}
+        <div class="card book">
+          <div class="card-body" style="background-color:{{book.color}}">
+            <h5 class="card-title book-title"><img src="https://i.postimg.cc/25g7DvGg/white-book-cover.png" alt="" class="book-img"> <b>{{book.title}}</b></h5>
+            <p class="card-text book-author">
+              by {{book.author}}
+            </p>
+            <p class="card-text">
+              {% if book.subject != 'Not Found' %}
+              Subject(s): {{book.subject}} | 
+              {% endif %}
+              Publish Year: {{book.publish_year}}
+            </p>
+            <a href="/book/book-details/{{book.id}}" class="btn btn-outline-dark btn-sm">Edit Book</a>
+            <a href="/delete-book/{{book.id}}" class="btn btn-outline-danger btn-sm">Delete</a>
+          </div>
+        </div>
+    {% endfor %}
+  </div>
+  <div class="card-deck body-text">
+    {% for book in user.books[32:36] %}
+        <div class="card book">
+          <div class="card-body" style="background-color:{{book.color}}">
+            <h5 class="card-title book-title"><img src="https://i.postimg.cc/25g7DvGg/white-book-cover.png" alt="" class="book-img"> <b>{{book.title}}</b></h5>
+            <p class="card-text book-author">
+              by {{book.author}}
+            </p>
+            <p class="card-text">
+              {% if book.subject != 'Not Found' %}
+              Subject(s): {{book.subject}} | 
+              {% endif %}
+              Publish Year: {{book.publish_year}}
+            </p>
+            <a href="/book/book-details/{{book.id}}" class="btn btn-outline-dark">Edit Book</a>
+            <a href="/delete-book/{{book.id}}" class="btn btn-outline-danger">Delete</a>
+          </div>
+        </div>
+    {% endfor %}
+  </div>
+  <div class="card-deck body-text">
+    {% for book in user.books[36:40] %}
+        <div class="card book">
+          <div class="card-body" style="background-color:{{book.color}}">
+            <h5 class="card-title book-title"><img src="https://i.postimg.cc/25g7DvGg/white-book-cover.png" alt="" class="book-img"> <b>{{book.title}}</b></h5>
+            <p class="card-text book-author">
+              by {{book.author}}
+            </p>
+            <p class="card-text">
+              {% if book.subject != 'Not Found' %}
+              Subject(s): {{book.subject}} | 
+              {% endif %}
+              Publish Year: {{book.publish_year}}
+            </p>
+            <a href="/book/book-details/{{book.id}}" class="btn btn-outline-dark">Edit Book</a>
+            <a href="/delete-book/{{book.id}}" class="btn btn-outline-danger">Delete</a>
+          </div>
+        </div>
+    {% endfor %}
+  </div>
+  {% endif %}
+{% endblock %}

@@ -1,0 +1,60 @@
+{% extends 'base.html'  %}
+{% block title %}mybookshelves.{% endblock %}
+{% block content %}
+
+<h1 class="header">mybookshelves.<img src="https://i.ibb.co/dLKHBVS/bookshelf-pic.png" alt="Bookshelf-Image" class="bookshelf-img-header"></h1>
+<p class="lead body-text">View, create, and delete your bookshelves here.</p>
+<div class="form-container">
+  <form method="POST" class="body-text form">
+
+    {{ form.hidden_tag() }}
+  
+    {% for field in form
+      if field.widget.input_type != 'hidden' %}
+    <p>
+      {{ field.label }}
+      {{ field(class_="form-control") }}
+  
+      {% for error in field.errors %}
+      <span class="form-text text-danger">{{ error }}</span>
+      {% endfor %}
+    </p>
+    {% endfor %}
+  
+    <button class="btn btn-success btn-sm" type="submit">Add Bookshelf</button>
+  
+  </form>
+</div>
+  {% if not user.bookshelves %}
+  <br><p class="body-text">You haven't added any bookshelves yet!</p>
+  {% endif %}
+  {% for bookshelf in user.bookshelves %}
+
+
+
+  <div class="row">
+    <div class="bookshelf-text bookshelf">
+      <div class="card">
+        {% if bookshelf.color == '#ffff00' %}
+        <div class="card-body" style="background-color:{{bookshelf.color}}; color:black;">
+        {% else %}
+        <div class="card-body" style="background-color:{{bookshelf.color}};">
+        {% endif %}
+          <h5 class="card-title"><img src="https://i.ibb.co/dLKHBVS/bookshelf-pic.png" alt="Bookshelf-Image" class="bookshelf-img"><b>{{bookshelf.name}}</b></h5>
+          {% if bookshelf.subject %}
+          <p class="card-text book-author">
+            Subject: {{bookshelf.subject}}
+          </p>
+          {% endif %}
+          <a href="/bookshelf/bookshelf-details/{{bookshelf.id}}" class="btn btn-outline-dark btn-sm">View Bookshelf</a>
+          {% if bookshelf.color == '#ff0000' %}
+          <a href="/delete-bookshelf/{{bookshelf.id}}" class="btn btn-outline-warning btn-sm">Delete</a>
+          {% else %}
+          <a href="/delete-bookshelf/{{bookshelf.id}}" class="btn btn-outline-danger btn-sm">Delete</a>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+{% endblock %}

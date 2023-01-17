@@ -1,0 +1,48 @@
+{% extends 'base.html'  %}
+{% block title %}read_dates.{% endblock %}
+{% block content %}
+
+<h1 class="header">read_dates.</h1>
+<p class="lead body-text">View, update and delete your book read dates here.</p>
+
+{% if book.read_dates %}
+{% for read_date in book.read_dates %}
+<div class="card read-date">
+  <div class="card-body">
+    <h5 class="card-title body-text"><b>Read dates for {{book.title}} by {{book.author}}</b></h5>
+    <p class="card-text body-text">
+      {% if read_date.start_date %}
+      Start date: {{read_date.start_date}}
+      {% endif %}
+      | 
+      {% if read_date.end_date %}
+      End date: {{read_date.end_date}} 
+      {% endif %}
+    </p>
+    <a href="/delete-read-dates/{{read_date.id}}" class="btn btn-outline-danger btn-sm">Delete</a>
+  </div>
+</div>  
+{% endfor %}
+{% endif %}
+<h3 class="header body-text">Update read dates</h3>
+<div class="form-container">
+  <form method="POST" class="body-text form">
+
+    {{ form.hidden_tag() }}
+  
+    {% for field in form
+      if field.widget.input_type != 'hidden' %}
+    <p>
+      {{ field.label }}
+      {{ field(class_="form-control") }}
+  
+      {% for error in field.errors %}
+      <span class="form-text text-danger">{{ error }}</span>
+      {% endfor %}
+    </p>
+    {% endfor %}
+  
+    <button class="btn btn-success btn-sm" type="submit">Submit Read Dates</button>
+  </form>
+</div>
+{% endblock %}

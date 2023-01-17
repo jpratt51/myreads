@@ -1,0 +1,9 @@
+{% extends '/bookshelf/bookshelf-details.html' %}
+{% block bookshelf_details %}
+  {% for book in user.books %}
+    <form action="/bookshelf/add-bookshelf-book/{{bookshelf.id}}">
+        <p>{{book.title}} by {{book.author}}</p>
+        <button class="btn btn-sm btn-primary">Add Book to Bookshelf</button>  <button class="btn btn-sm btn-danger">Remove Book from Bookshelf</button>
+    </form>
+  {% endfor %}
+{% endblock %}

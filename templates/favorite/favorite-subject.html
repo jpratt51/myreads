@@ -1,0 +1,21 @@
+{% extends '/favorite/my-favorites.html'  %}
+{% block favorite_subject_form %}
+<div class="form-container">
+  <form method="POST" class="body-text form">
+      {{ form.hidden_tag() }}
+
+      {% for field in form
+        if field.widget.input_type != 'hidden' %}
+      <p>
+        {{ field.label }}
+        {{ field(class_="form-control") }}
+    
+        {% for error in field.errors %}
+        <span class="form-text text-danger">{{ error }}</span>
+        {% endfor %}
+      </p>
+      {% endfor %}
+      <button class="btn btn-success btn-sm" type="submit">Submit</button>
+  </form>
+</div>
+{% endblock %}

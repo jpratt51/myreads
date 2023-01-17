@@ -1,0 +1,50 @@
+{% extends 'base.html'  %}
+{% block title %}myfavorites.{% endblock %}
+{% block content %}
+
+<h1 class="header">myfavorites.</h1>
+<p class="body-text">View, update, and delete your favorite subjects and authors here.</p>
+<div class="form-container body-text">
+  <a href="/favorite/favorite-author" class="btn btn-outline-success favorites-btn btn-sm">Add Favorite Author</a>
+  <a href="/favorite/favorite-subject" class="btn btn-outline-success favorites-btn btn-sm">Add Favorite Subject</a>
+</div>
+{% block favorite_subject_form %}
+{% endblock %}
+{% block favorite_author_form %}
+{% endblock %}
+{% if not (user.subjects or user.authors) %}
+<br><br><p class="body-text center"><b>You haven't added any favorites yet!</b></p>
+{% endif %}
+{% if user.subjects %}
+  <h1 class="lead-text favorites-lead">My favorite subjects</h1>
+
+  {% for subject in user.subjects %}
+  <div class="row">
+    <div class="body-text favorite-card">
+      <div class="card">
+        <div class="card-body" style="background-color:{{subject.color}}">
+          <h5 class="card-title book-title favorite"><b>{{subject.name}}</b></h5>
+          <a href="/delete-subject/{{subject.id}}" class="btn btn-dark btn-sm">Delete</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+{% endif %}
+{% if user.authors %}
+  <h1 class="lead-text favorites-lead">My favorite authors</h1>
+
+  {% for author in user.authors %}
+  <div class="row">
+    <div class="body-text favorite-card">
+      <div class="card">
+        <div class="card-body" style="background-color:{{author.color}}">
+          <h5 class="card-title book-title favorite"><b>{{author.name}}</b></h5>
+          <a href="/delete-author/{{author.id}}" class="btn btn-dark btn-sm">Delete</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+{% endif %}
+{% endblock %}

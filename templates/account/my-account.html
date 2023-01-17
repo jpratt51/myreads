@@ -1,0 +1,25 @@
+{% extends 'base.html'  %}
+{% block title %}myaccount.{% endblock %}
+{% block content %}
+<h1 class="header">myaccount.</h1>
+<p class="body-text">View your account info here.</p><br>
+  <div class="card profile-card border-primary">
+    {% if user.img_url %}
+    <a href="/account/update-img/{{user.username}}"></a><img class="card-img-top profile-img" src="{{user.img_url}}" alt="Profile-Pic"></a>
+    {% else %}
+    <a href="/account/update-img/{{user.username}}"><img class="card-img-top profile-img" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTt1ceyneFkZchgkrwN7dZxWNl_C5Dctvc5BzNh_rEzPQ&s" alt="Profile-Pic"></a>
+    {% endif %}
+    
+    <div class="card-body" style="background-color: #D3D3D3;">
+      <h5 class="card-title body-text">Username: {{user.username}}</h5>
+      <p class="card-text body-text">Name: {{user.first_name}} {{user.last_name}}</p>
+      <p class="card-text body-text">Email: {{user.email}}</p>
+      <p class="body-text">Warning: deleting  your account cannot be undone!</p>
+      <hr>
+      <div class="form-container body-text">
+        <a href="/account/update-img/{{user.username}}" class="btn btn-primary btn-sm">Update Profile Picture</a>
+        <a href="/delete-user/{{user.username}}" class="btn btn-danger btn-sm">Delete Account</a>
+      </div>
+    </div>
+  </div>  
+{% endblock %}

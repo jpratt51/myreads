@@ -1,0 +1,83 @@
+{% extends 'base.html'  %}
+{% block title %}bookdetails.{% endblock %}
+{% block content %}
+
+<h1 class="header">bookdetails.<img src="https://i.ibb.co/nRR4rd4/book-img.png" alt="book-img" class="book-img-header"></h1>
+<p class="lead body-text">View and edit book here.</p>
+<div>
+  <div class="body-text">
+    <div class="card book book-details">
+      <div class="card-body" style="background-color:{{book.color}}">
+        <h5 class="card-title book-title"><img src="https://i.postimg.cc/25g7DvGg/white-book-cover.png" alt="" class="book-details-img"> <b>{{book.title}} by {{book.author}}</b></h5>
+        <p class="card-text">
+          {% if book.subject != 'Not Found' %}
+          Subject(s): {{book.subject}} | 
+          {% endif %}
+          Publish Year: {{book.publish_year}}
+        </p>
+        {% if not book.review %}
+        <a href="/book/review/{{book.id}}" class="btn btn-outline-info btn-sm">Edit Review</a>
+        {% endif %}
+        {% if not book.rating %}
+        <a href="/book/rating/{{book.id}}" class="btn btn-outline-info btn-sm">Edit Rating</a>
+        {% endif %}
+        {% if not book.read_dates %}
+        <a href="/book/read-dates/{{book.id}}" class="btn btn-outline-info btn-sm">Edit Read Dates</a>
+        {% endif %}
+        <a href="/delete-book/{{book.id}}" class="btn btn-outline-danger btn-sm">Delete</a>
+      </div>
+    </div>
+    {% if book.review %}
+    {% for review in book.review %}
+    <div class="card">
+      <div class="card-body review">
+        <h5 class="card-title body-text"><b>Review</b></h5>
+        <p class="card-text body-text">
+            {{review.text}}
+        </p>
+        <p class="card-text body-text">
+          Review publish date: {{review.friendly_date}}
+        </p>
+        <a href="/book/review/{{book.id}}" class="btn btn-outline-success  btn-sm">Edit Review</a>
+        <a href="/delete-review/{{review.id}}" class="btn btn-outline-danger btn-sm">Delete</a>
+      </div>
+    </div>  
+    {% endfor  %}
+    {% endif %}
+    {% if book.rating %}
+    {% for rating in book.rating %}
+    <div class="card">
+      <div class="card-body rating">
+        <h5 class="card-title body-text"><b>Rating</b></h5>
+        <p class="card-text body-text">
+          {{rating.rating}} out of 5
+        </p>
+        <a href="/book/rating/{{book.id}}" class="btn btn-outline-success btn-sm">Edit Rating</a>
+        <a href="/delete-rating/{{rating.id}}" class="btn btn-outline-danger btn-sm">Delete</a>
+      </div>
+    </div>  
+    {% endfor %}
+    {% endif %}
+    {% if book.read_dates %}
+    {% for read_date in book.read_dates %}
+    <div class="card">
+      <div class="card-body read-dates">
+        <h5 class="card-title body-text"><b>Read dates</b></h5>
+        <p class="card-text body-text">
+          {% if read_date.start_date %}
+          Start date: {{read_date.start_date}}
+          {% endif %}
+          | 
+          {% if read_date.end_date %}
+          End date: {{read_date.end_date}} 
+          {% endif %}
+        </p>
+        <a href="/book/read-dates/{{book.id}}" class="btn btn-outline-success btn-sm">Edit Read Dates</a>
+        <a href="/delete-read-dates/{{read_date.id}}" class="btn btn-outline-danger btn-sm">Delete</a>
+      </div>
+    </div>  
+    {% endfor %}
+    {% endif %}
+  </div>
+</div>
+{% endblock %}

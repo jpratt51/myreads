@@ -1,0 +1,496 @@
+{% extends 'base.html'  %}
+{% block title %}mybookshelf.{% endblock %}
+{% block content %}
+
+<h1 class="header">mybookshelf.<img src="https://i.ibb.co/dLKHBVS/bookshelf-pic.png" alt="Bookshelf-Image" class="bookshelf-img-header"></h1>
+<p class="lead body-text">View, add and remove books from bookshelf.</p>
+<div class="form-container form">
+  <a href="/bookshelf/bookshelf-details/{{bookshelf.id}}" class="btn btn-outline-dark btn-sm">Back to bookshelf details</a>
+</div>
+<div class="form-container">
+
+  <form method="POST" class="form">
+    <p class="body-text">Search your books by author or title (or both) to add to bookshelf.</p>
+    {{ form.hidden_tag() }}
+  
+    {% for field in form
+      if field.widget.input_type != 'hidden' %}
+    <p class="body-text">
+      {{ field.label }}
+      {{ field(class_="form-control") }}
+  
+      {% for error in field.errors %}
+      <span class="form-text text-danger body-text">{{ error }}</span>
+      {% endfor %}
+    </p>
+    {% endfor %}
+  
+    <button class="btn btn-success body-text btn-sm" type="submit">Search</button>
+  </form>
+</div>
+{% if not books %}
+<h3 class="body-text">Books in my library</h3>
+<div class="card-deck body-text">
+  {% for book in user.books[:4] %}
+      <div class="card book">
+        <div class="card-body" style="background-color:{{book.color}}">
+          <h5 class="card-title book-title"><img src="https://i.postimg.cc/25g7DvGg/white-book-cover.png" alt="" class="book-img"> <b>{{book.title}}</b></h5>
+          <p class="card-text book-author">
+            by {{book.author}}
+          </p>
+          <p class="card-text">
+            {% if book.subject != 'Not Found' %}
+            Subject(s): {{book.subject}} | 
+            {% endif %}
+            Publish Year: {{book.publish_year}}
+          </p>
+          {% if book not in bookshelf.books %}
+          <a href="/bookshelf/update-bookshelf/{{bookshelf.id}}/{{book.id}}" class="btn btn-outline-dark btn-sm">Add book to bookshelf</a>
+          {% else %}
+          <a href='/delete-bookshelf-book/{{bookshelf.id}}/{{book.id}}' class="btn btn-outline-danger btn-sm">Remove from bookshelf</a>
+          {% endif %}
+        </div>
+      </div>
+  {% endfor %}
+</div>
+<div class="card-deck body-text">
+  {% for book in user.books[4:8] %}
+      <div class="card book">
+        <div class="card-body" style="background-color:{{book.color}}">
+          <h5 class="card-title book-title"><img src="https://i.postimg.cc/25g7DvGg/white-book-cover.png" alt="" class="book-img"> <b>{{book.title}}</b></h5>
+          <p class="card-text book-author">
+            by {{book.author}}
+          </p>
+          <p class="card-text">
+            {% if book.subject != 'Not Found' %}
+            Subject(s): {{book.subject}} | 
+            {% endif %}
+            Publish Year: {{book.publish_year}}
+          </p>
+          {% if book not in bookshelf.books %}
+          <a href="/bookshelf/update-bookshelf/{{bookshelf.id}}/{{book.id}}" class="btn btn-outline-dark btn-sm">Add book to bookshelf</a>
+          {% else %}
+          <a href='/delete-bookshelf-book/{{bookshelf.id}}/{{book.id}}' class="btn btn-outline-danger btn-sm">Remove from bookshelf</a>
+          {% endif %}
+        </div>
+      </div>
+  {% endfor %}
+</div>
+<div class="card-deck body-text">
+  {% for book in user.books[8:12] %}
+      <div class="card book">
+        <div class="card-body" style="background-color:{{book.color}}">
+          <h5 class="card-title book-title"><img src="https://i.postimg.cc/25g7DvGg/white-book-cover.png" alt="" class="book-img"> <b>{{book.title}}</b></h5>
+          <p class="card-text book-author">
+            by {{book.author}}
+          </p>
+          <p class="card-text">
+            {% if book.subject != 'Not Found' %}
+            Subject(s): {{book.subject}} | 
+            {% endif %}
+            Publish Year: {{book.publish_year}}
+          </p>
+          {% if book not in bookshelf.books %}
+          <a href="/bookshelf/update-bookshelf/{{bookshelf.id}}/{{book.id}}" class="btn btn-outline-dark btn-sm">Add book to bookshelf</a>
+          {% else %}
+          <a href='/delete-bookshelf-book/{{bookshelf.id}}/{{book.id}}' class="btn btn-outline-danger btn-sm">Remove from bookshelf</a>
+          {% endif %}
+        </div>
+      </div>
+  {% endfor %}
+</div>
+<div class="card-deck body-text">
+  {% for book in user.books[12:16] %}
+      <div class="card book">
+        <div class="card-body" style="background-color:{{book.color}}">
+          <h5 class="card-title book-title"><img src="https://i.postimg.cc/25g7DvGg/white-book-cover.png" alt="" class="book-img"> <b>{{book.title}}</b></h5>
+          <p class="card-text book-author">
+            by {{book.author}}
+          </p>
+          <p class="card-text">
+            {% if book.subject != 'Not Found' %}
+            Subject(s): {{book.subject}} | 
+            {% endif %}
+            Publish Year: {{book.publish_year}}
+          </p>
+          {% if book not in bookshelf.books %}
+          <a href="/bookshelf/update-bookshelf/{{bookshelf.id}}/{{book.id}}" class="btn btn-outline-dark btn-sm">Add book to bookshelf</a>
+          {% else %}
+          <a href='/delete-bookshelf-book/{{bookshelf.id}}/{{book.id}}' class="btn btn-outline-danger btn-sm">Remove from bookshelf</a>
+          {% endif %}
+        </div>
+      </div>
+  {% endfor %}
+</div>
+<div class="card-deck body-text">
+  {% for book in user.books[16:20] %}
+      <div class="card book">
+        <div class="card-body" style="background-color:{{book.color}}">
+          <h5 class="card-title book-title"><img src="https://i.postimg.cc/25g7DvGg/white-book-cover.png" alt="" class="book-img"> <b>{{book.title}}</b></h5>
+          <p class="card-text book-author">
+            by {{book.author}}
+          </p>
+          <p class="card-text">
+            {% if book.subject != 'Not Found' %}
+            Subject(s): {{book.subject}} | 
+            {% endif %}
+            Publish Year: {{book.publish_year}}
+          </p>
+          {% if book not in bookshelf.books %}
+          <a href="/bookshelf/update-bookshelf/{{bookshelf.id}}/{{book.id}}" class="btn btn-outline-dark btn-sm">Add book to bookshelf</a>
+          {% else %}
+          <a href='/delete-bookshelf-book/{{bookshelf.id}}/{{book.id}}' class="btn btn-outline-danger btn-sm">Remove from bookshelf</a>
+          {% endif %}
+        </div>
+      </div>
+  {% endfor %}
+</div>
+<div class="card-deck body-text">
+  {% for book in user.books[20:24] %}
+      <div class="card book">
+        <div class="card-body" style="background-color:{{book.color}}">
+          <h5 class="card-title book-title"><img src="https://i.postimg.cc/25g7DvGg/white-book-cover.png" alt="" class="book-img"> <b>{{book.title}}</b></h5>
+          <p class="card-text book-author">
+            by {{book.author}}
+          </p>
+          <p class="card-text">
+            {% if book.subject != 'Not Found' %}
+            Subject(s): {{book.subject}} | 
+            {% endif %}
+            Publish Year: {{book.publish_year}}
+          </p>
+          {% if book not in bookshelf.books %}
+          <a href="/bookshelf/update-bookshelf/{{bookshelf.id}}/{{book.id}}" class="btn btn-outline-dark btn-sm">Add book to bookshelf</a>
+          {% else %}
+          <a href='/delete-bookshelf-book/{{bookshelf.id}}/{{book.id}}' class="btn btn-outline-danger btn-sm">Remove from bookshelf</a>
+          {% endif %}
+        </div>
+      </div>
+  {% endfor %}
+</div>
+<div class="card-deck body-text">
+  {% for book in user.books[24:28] %}
+      <div class="card book">
+        <div class="card-body" style="background-color:{{book.color}}">
+          <h5 class="card-title book-title"><img src="https://i.postimg.cc/25g7DvGg/white-book-cover.png" alt="" class="book-img"> <b>{{book.title}}</b></h5>
+          <p class="card-text book-author">
+            by {{book.author}}
+          </p>
+          <p class="card-text">
+            {% if book.subject != 'Not Found' %}
+            Subject(s): {{book.subject}} | 
+            {% endif %}
+            Publish Year: {{book.publish_year}}
+          </p>
+          {% if book not in bookshelf.books %}
+          <a href="/bookshelf/update-bookshelf/{{bookshelf.id}}/{{book.id}}" class="btn btn-outline-dark btn-sm">Add book to bookshelf</a>
+          {% else %}
+          <a href='/delete-bookshelf-book/{{bookshelf.id}}/{{book.id}}' class="btn btn-outline-danger btn-sm">Remove from bookshelf</a>
+          {% endif %}
+        </div>
+      </div>
+  {% endfor %}
+</div>
+<div class="card-deck body-text">
+  {% for book in user.books[28:32] %}
+      <div class="card book">
+        <div class="card-body" style="background-color:{{book.color}}">
+          <h5 class="card-title book-title"><img src="https://i.postimg.cc/25g7DvGg/white-book-cover.png" alt="" class="book-img"> <b>{{book.title}}</b></h5>
+          <p class="card-text book-author">
+            by {{book.author}}
+          </p>
+          <p class="card-text">
+            {% if book.subject != 'Not Found' %}
+            Subject(s): {{book.subject}} | 
+            {% endif %}
+            Publish Year: {{book.publish_year}}
+          </p>
+          {% if book not in bookshelf.books %}
+          <a href="/bookshelf/update-bookshelf/{{bookshelf.id}}/{{book.id}}" class="btn btn-outline-dark btn-sm">Add book to bookshelf</a>
+          {% else %}
+          <a href='/delete-bookshelf-book/{{bookshelf.id}}/{{book.id}}' class="btn btn-outline-danger btn-sm">Remove from bookshelf</a>
+          {% endif %}
+        </div>
+      </div>
+  {% endfor %}
+</div>
+<div class="card-deck body-text">
+  {% for book in user.books[32:36] %}
+      <div class="card book">
+        <div class="card-body" style="background-color:{{book.color}}">
+          <h5 class="card-title book-title"><img src="https://i.postimg.cc/25g7DvGg/white-book-cover.png" alt="" class="book-img"> <b>{{book.title}}</b></h5>
+          <p class="card-text book-author">
+            by {{book.author}}
+          </p>
+          <p class="card-text">
+            {% if book.subject != 'Not Found' %}
+            Subject(s): {{book.subject}} | 
+            {% endif %}
+            Publish Year: {{book.publish_year}}
+          </p>
+          {% if book not in bookshelf.books %}
+          <a href="/bookshelf/update-bookshelf/{{bookshelf.id}}/{{book.id}}" class="btn btn-outline-dark btn-sm">Add book to bookshelf</a>
+          {% else %}
+          <a href='/delete-bookshelf-book/{{bookshelf.id}}/{{book.id}}' class="btn btn-outline-danger btn-sm">Remove from bookshelf</a>
+          {% endif %}
+        </div>
+      </div>
+  {% endfor %}
+</div>
+<div class="card-deck body-text">
+  {% for book in user.books[36:40] %}
+      <div class="card book">
+        <div class="card-body" style="background-color:{{book.color}}">
+          <h5 class="card-title book-title"><img src="https://i.postimg.cc/25g7DvGg/white-book-cover.png" alt="" class="book-img"> <b>{{book.title}}</b></h5>
+          <p class="card-text book-author">
+            by {{book.author}}
+          </p>
+          <p class="card-text">
+            {% if book.subject != 'Not Found' %}
+            Subject(s): {{book.subject}} | 
+            {% endif %}
+            Publish Year: {{book.publish_year}}
+          </p>
+          {% if book not in bookshelf.books %}
+          <a href="/bookshelf/update-bookshelf/{{bookshelf.id}}/{{book.id}}" class="btn btn-outline-dark btn-sm">Add book to bookshelf</a>
+          {% else %}
+          <a href='/delete-bookshelf-book/{{bookshelf.id}}/{{book.id}}' class="btn btn-outline-danger btn-sm">Remove from bookshelf</a>
+          {% endif %}
+        </div>
+      </div>
+  {% endfor %}
+</div>
+{% else %}
+<h3 class="body-text">Library Search Results</h3>
+<div class="card-deck body-text">
+  {% for book in books[:4] %}
+      <div class="card book">
+        <div class="card-body" style="background-color:{{book.color}}">
+          <h5 class="card-title book-title"><img src="https://i.postimg.cc/25g7DvGg/white-book-cover.png" alt="" class="book-img"> <b>{{book.title}}</b></h5>
+          <p class="card-text book-author">
+            by {{book.author}}
+          </p>
+          <p class="card-text">
+            {% if book.subject != 'Not Found' %}
+            Subject(s): {{book.subject}} | 
+            {% endif %}
+            Publish Year: {{book.publish_year}}
+          </p>
+          {% if book not in bookshelf.books %}
+          <a href="/bookshelf/update-bookshelf/{{bookshelf.id}}/{{book.id}}" class="btn btn-outline-dark btn-sm">Add book to bookshelf</a>
+          {% else %}
+          <a href='/delete-bookshelf-book/{{bookshelf.id}}/{{book.id}}' class="btn btn-outline-danger btn-sm">Remove from bookshelf</a>
+          {% endif %}
+        </div>
+      </div>
+  {% endfor %}
+</div>
+<div class="card-deck body-text">
+  {% for book in books[4:8] %}
+      <div class="card book">
+        <div class="card-body" style="background-color:{{book.color}}">
+          <h5 class="card-title book-title"><img src="https://i.postimg.cc/25g7DvGg/white-book-cover.png" alt="" class="book-img"> <b>{{book.title}}</b></h5>
+          <p class="card-text book-author">
+            by {{book.author}}
+          </p>
+          <p class="card-text">
+            {% if book.subject != 'Not Found' %}
+            Subject(s): {{book.subject}} | 
+            {% endif %}
+            Publish Year: {{book.publish_year}}
+          </p>
+          {% if book not in bookshelf.books %}
+          <a href="/bookshelf/update-bookshelf/{{bookshelf.id}}/{{book.id}}" class="btn btn-outline-dark btn-sm">Add book to bookshelf</a>
+          {% else %}
+          <a href='/delete-bookshelf-book/{{bookshelf.id}}/{{book.id}}' class="btn btn-outline-danger btn-sm">Remove from bookshelf</a>
+          {% endif %}
+        </div>
+      </div>
+  {% endfor %}
+</div>
+<div class="card-deck body-text">
+  {% for book in books[8:12] %}
+      <div class="card book">
+        <div class="card-body" style="background-color:{{book.color}}">
+          <h5 class="card-title book-title"><img src="https://i.postimg.cc/25g7DvGg/white-book-cover.png" alt="" class="book-img"> <b>{{book.title}}</b></h5>
+          <p class="card-text book-author">
+            by {{book.author}}
+          </p>
+          <p class="card-text">
+            {% if book.subject != 'Not Found' %}
+            Subject(s): {{book.subject}} | 
+            {% endif %}
+            Publish Year: {{book.publish_year}}
+          </p>
+          {% if book not in bookshelf.books %}
+          <a href="/bookshelf/update-bookshelf/{{bookshelf.id}}/{{book.id}}" class="btn btn-outline-dark btn-sm">Add book to bookshelf</a>
+          {% else %}
+          <a href='/delete-bookshelf-book/{{bookshelf.id}}/{{book.id}}' class="btn btn-outline-danger btn-sm">Remove from bookshelf</a>
+          {% endif %}
+        </div>
+      </div>
+  {% endfor %}
+</div>
+<div class="card-deck body-text">
+  {% for book in books[12:16] %}
+      <div class="card book">
+        <div class="card-body" style="background-color:{{book.color}}">
+          <h5 class="card-title book-title"><img src="https://i.postimg.cc/25g7DvGg/white-book-cover.png" alt="" class="book-img"> <b>{{book.title}}</b></h5>
+          <p class="card-text book-author">
+            by {{book.author}}
+          </p>
+          <p class="card-text">
+            {% if book.subject != 'Not Found' %}
+            Subject(s): {{book.subject}} | 
+            {% endif %}
+            Publish Year: {{book.publish_year}}
+          </p>
+          {% if book not in bookshelf.books %}
+          <a href="/bookshelf/update-bookshelf/{{bookshelf.id}}/{{book.id}}" class="btn btn-outline-dark btn-sm">Add book to bookshelf</a>
+          {% else %}
+          <a href='/delete-bookshelf-book/{{bookshelf.id}}/{{book.id}}' class="btn btn-outline-danger btn-sm">Remove from bookshelf</a>
+          {% endif %}
+        </div>
+      </div>
+  {% endfor %}
+</div>
+<div class="card-deck body-text">
+  {% for book in books[16:20] %}
+      <div class="card book">
+        <div class="card-body" style="background-color:{{book.color}}">
+          <h5 class="card-title book-title"><img src="https://i.postimg.cc/25g7DvGg/white-book-cover.png" alt="" class="book-img"> <b>{{book.title}}</b></h5>
+          <p class="card-text book-author">
+            by {{book.author}}
+          </p>
+          <p class="card-text">
+            {% if book.subject != 'Not Found' %}
+            Subject(s): {{book.subject}} | 
+            {% endif %}
+            Publish Year: {{book.publish_year}}
+          </p>
+          {% if book not in bookshelf.books %}
+          <a href="/bookshelf/update-bookshelf/{{bookshelf.id}}/{{book.id}}" class="btn btn-outline-dark btn-sm">Add book to bookshelf</a>
+          {% else %}
+          <a href='/delete-bookshelf-book/{{bookshelf.id}}/{{book.id}}' class="btn btn-outline-danger btn-sm">Remove from bookshelf</a>
+          {% endif %}
+        </div>
+      </div>
+  {% endfor %}
+</div>
+<div class="card-deck body-text">
+  {% for book in books[20:24] %}
+      <div class="card book">
+        <div class="card-body" style="background-color:{{book.color}}">
+          <h5 class="card-title book-title"><img src="https://i.postimg.cc/25g7DvGg/white-book-cover.png" alt="" class="book-img"> <b>{{book.title}}</b></h5>
+          <p class="card-text book-author">
+            by {{book.author}}
+          </p>
+          <p class="card-text">
+            {% if book.subject != 'Not Found' %}
+            Subject(s): {{book.subject}} | 
+            {% endif %}
+            Publish Year: {{book.publish_year}}
+          </p>
+          {% if book not in bookshelf.books %}
+          <a href="/bookshelf/update-bookshelf/{{bookshelf.id}}/{{book.id}}" class="btn btn-outline-dark btn-sm">Add book to bookshelf</a>
+          {% else %}
+          <a href='/delete-bookshelf-book/{{bookshelf.id}}/{{book.id}}' class="btn btn-outline-danger btn-sm">Remove from bookshelf</a>
+          {% endif %}
+        </div>
+      </div>
+  {% endfor %}
+</div>
+<div class="card-deck body-text">
+  {% for book in books[24:28] %}
+      <div class="card book">
+        <div class="card-body" style="background-color:{{book.color}}">
+          <h5 class="card-title book-title"><img src="https://i.postimg.cc/25g7DvGg/white-book-cover.png" alt="" class="book-img"> <b>{{book.title}}</b></h5>
+          <p class="card-text book-author">
+            by {{book.author}}
+          </p>
+          <p class="card-text">
+            {% if book.subject != 'Not Found' %}
+            Subject(s): {{book.subject}} | 
+            {% endif %}
+            Publish Year: {{book.publish_year}}
+          </p>
+          {% if book not in bookshelf.books %}
+          <a href="/bookshelf/update-bookshelf/{{bookshelf.id}}/{{book.id}}" class="btn btn-outline-dark btn-sm">Add book to bookshelf</a>
+          {% else %}
+          <a href='/delete-bookshelf-book/{{bookshelf.id}}/{{book.id}}' class="btn btn-outline-danger btn-sm">Remove from bookshelf</a>
+          {% endif %}
+        </div>
+      </div>
+  {% endfor %}
+</div>
+<div class="card-deck body-text">
+  {% for book in books[28:32] %}
+      <div class="card book">
+        <div class="card-body" style="background-color:{{book.color}}">
+          <h5 class="card-title book-title"><img src="https://i.postimg.cc/25g7DvGg/white-book-cover.png" alt="" class="book-img"> <b>{{book.title}}</b></h5>
+          <p class="card-text book-author">
+            by {{book.author}}
+          </p>
+          <p class="card-text">
+            {% if book.subject != 'Not Found' %}
+            Subject(s): {{book.subject}} | 
+            {% endif %}
+            Publish Year: {{book.publish_year}}
+          </p>
+          {% if book not in bookshelf.books %}
+          <a href="/bookshelf/update-bookshelf/{{bookshelf.id}}/{{book.id}}" class="btn btn-outline-dark btn-sm">Add book to bookshelf</a>
+          {% else %}
+          <a href='/delete-bookshelf-book/{{bookshelf.id}}/{{book.id}}' class="btn btn-outline-danger btn-sm">Remove from bookshelf</a>
+          {% endif %}
+        </div>
+      </div>
+  {% endfor %}
+</div>
+<div class="card-deck body-text">
+  {% for book in books[32:36] %}
+      <div class="card book">
+        <div class="card-body" style="background-color:{{book.color}}">
+          <h5 class="card-title book-title"><img src="https://i.postimg.cc/25g7DvGg/white-book-cover.png" alt="" class="book-img"> <b>{{book.title}}</b></h5>
+          <p class="card-text book-author">
+            by {{book.author}}
+          </p>
+          <p class="card-text">
+            {% if book.subject != 'Not Found' %}
+            Subject(s): {{book.subject}} | 
+            {% endif %}
+            Publish Year: {{book.publish_year}}
+          </p>
+          {% if book not in bookshelf.books %}
+          <a href="/bookshelf/update-bookshelf/{{bookshelf.id}}/{{book.id}}" class="btn btn-outline-dark btn-sm">Add book to bookshelf</a>
+          {% else %}
+          <a href='/delete-bookshelf-book/{{bookshelf.id}}/{{book.id}}' class="btn btn-outline-danger btn-sm">Remove from bookshelf</a>
+          {% endif %}
+        </div>
+      </div>
+  {% endfor %}
+</div>
+<div class="card-deck body-text">
+  {% for book in books[36:40] %}
+      <div class="card book">
+        <div class="card-body" style="background-color:{{book.color}}">
+          <h5 class="card-title book-title"><img src="https://i.postimg.cc/25g7DvGg/white-book-cover.png" alt="" class="book-img"> <b>{{book.title}}</b></h5>
+          <p class="card-text book-author">
+            by {{book.author}}
+          </p>
+          <p class="card-text">
+            {% if book.subject != 'Not Found' %}
+            Subject(s): {{book.subject}} | 
+            {% endif %}
+            Publish Year: {{book.publish_year}}
+          </p>
+          {% if book not in bookshelf.books %}
+          <a href="/bookshelf/update-bookshelf/{{bookshelf.id}}/{{book.id}}" class="btn btn-outline-dark btn-sm">Add book to bookshelf</a>
+          {% else %}
+          <a href='/delete-bookshelf-book/{{bookshelf.id}}/{{book.id}}' class="btn btn-outline-danger btn-sm">Remove from bookshelf</a>
+          {% endif %}
+        </div>
+      </div>
+  {% endfor %}
+</div>
+{% endif %}
+{% endblock %}

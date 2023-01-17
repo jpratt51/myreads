@@ -1,0 +1,33 @@
+{% extends 'base.html'  %}
+{% block title %}bookrating.{% endblock %}
+{% block content %}
+
+<h1 class="header">bookrating.</h1>
+<p class="lead-text body-text">View, create, update and delete your book rating here.</p>
+{% if book.rating %}
+{% for rating in book.rating %}
+  <div class="body-text align-left width">
+    <div>Rating for {{book.title}} by {{book.author}}</div>
+    <hr>
+    <div>{{rating.rating}} out of 5 
+      <a href="/delete-rating/{{rating.id}}" class="btn btn-outline-danger btn-sm">Delete</a>
+    </div>
+  </div>
+{% endfor %}
+{% endif %}
+    <div class="star-container body-text">
+      {% if book.rating %}
+      <div class="star-title">Update Rating:</div>
+      {% else %}
+      <div class="star-title">Rating:</div>
+      {% endif %}
+      <div class="row star-border">
+        <div class="star-field"><a href="/book/add-rating/{{book.id}}/1" class="star-img"><i class="fas fa-star"></i></a></div>
+        <div class="star-field"><a href="/book/add-rating/{{book.id}}/2"><i class="fas fa-star"></i></a></div>
+        <div class="star-field"><a href="/book/add-rating/{{book.id}}/3"><i class="fas fa-star"></i></a></div>
+        <div class="star-field"><a href="/book/add-rating/{{book.id}}/4"><i class="fas fa-star"></i></a></div>
+        <div class="star-field"><a href="/book/add-rating/{{book.id}}/5"><i class="fas fa-star"></i></a></div>
+      </div>
+    </div>
+
+{% endblock %}

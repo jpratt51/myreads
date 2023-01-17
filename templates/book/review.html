@@ -1,0 +1,47 @@
+{% extends 'base.html'  %}
+{% block title %}bookreview.{% endblock %}
+{% block content %}
+
+<h1 class="header">bookreview.</h1>
+<p class="lead body-text">View, create, update and delete your book review here.</p>
+{% if book.review %}
+    {% for review in book.review %}
+    <div class="card border-dark mb-3 review-container body-text">
+      <div class="card-body text-dark">
+        <p class="card-text review-header">Review for {{review.book.title}} by {{review.book.author}}</p>
+        <p class="card-text">{{review.text}}</p>
+        <div class="row">
+          <div class="card-text review-date">{{review.friendly_date}}<a action="/delete-review/{{review.id}}" class="btn btn-outline-danger body-text review-btn btn-sm">Delete</a></div>
+        </div>
+      </div>
+    </div>
+
+    {% endfor %}
+{% endif %}
+<div class="form-container">
+  <form method="POST" class="body-text form">
+
+    {{ form.hidden_tag() }}
+  
+    {% for field in form
+      if field.widget.input_type != 'hidden' %}
+    <p>
+      {% if book.review %}
+      Update Review
+      {% else %}
+      Create Review
+      {% endif %}
+    </p>
+    <p>
+      {{ field(class_="form-control") }}
+  
+      {% for error in field.errors %}
+      <span class="form-text text-danger">{{ error }}</span>
+      {% endfor %}
+    </p>
+    {% endfor %}
+  
+    <button class="btn btn-success btn-sm" type="submit">Submit</button>
+  </form>
+</div>
+{% endblock %}
