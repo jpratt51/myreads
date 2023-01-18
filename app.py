@@ -897,7 +897,7 @@ def delete_subject(id):
     db.session.delete(subject)
     db.session.commit()
     flash("Deleted subject from favorites", "success")
-    return redirect('/favorites')
+    return redirect('/favorite/my-favorites')
 
 @app.route('/favorite/delete-author/<int:id>', methods=["GET","DELETE"])
 def delete_author(id):
@@ -906,7 +906,7 @@ def delete_author(id):
     db.session.delete(author)
     db.session.commit()
     flash("Deleted author from favorites", "success")
-    return redirect('/favorites')
+    return redirect('/favorite/my-favorites')
 
 
 
