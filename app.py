@@ -11,6 +11,7 @@ from colors import rand_dark_color, rand_primary_color, rand_universe_color, ran
 from datetime import date
 from flask_bcrypt import Bcrypt
 import string
+import os
 
 app = Flask(__name__)
 
@@ -18,7 +19,7 @@ bcrypt = Bcrypt()
 
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql:///myreads'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-app.config['SECRET_KEY'] = "secret"
+app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'verysecret')
 app.config['DEBUG_TB_INTERCEPT_REDIRECTS'] = False
 
 app.config['MAIL_SERVER']='smtp.gmail.com'
