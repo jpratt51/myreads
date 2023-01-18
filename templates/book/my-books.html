@@ -28,6 +28,8 @@
 </div>
   {% if not user.books %}
   <p class="body-text">You haven't added any books yet! Go to Find Books located in the nav bar to add books to your library.</p>
+  {% else %}
+  <div class="body-text border border-success rounded inline">Click "Edit Book" to update reviews, ratings, and read dates</div>
   {% endif %}
   {% if books %}
   <div class="card-deck body-text">

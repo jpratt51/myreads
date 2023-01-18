@@ -140,6 +140,12 @@ body {
     }
 }
 
+.inline {
+    color: #5cb85c;
+    padding: .5rem;
+    margin: auto;
+}
+
 .book {
     display: block;
     margin-top: 3em;
