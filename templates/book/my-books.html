@@ -4,27 +4,28 @@
 
 <h1 class="header">mybooks.<img src="https://i.ibb.co/nRR4rd4/book-img.png" alt="book-img" class="book-img-header"></h1>
 <p class="lead body-text">View and delete your books here.</p>
-  <div class="form-container">
-    <p class="body-text">Search your books by author or title (or both)</p>
-    <form method="POST" class="form">
+<div class="form-container">
+  <p class="body-text">Search for books by author or title (or both)</p>
+  <form method="POST" class="body-text form">
 
-      {{ form.hidden_tag() }}
-    
-      {% for field in form
-        if field.widget.input_type != 'hidden' %}
-      <p class="body-text">
-        {{ field.label }}
-        {{ field(class_="form-control") }}
-    
-        {% for error in field.errors %}
-        <span class="form-text text-danger body-text">{{ error }}</span>
-        {% endfor %}
-      </p>
+    {{ form.hidden_tag() }}
+  
+    {% for field in form
+      if field.widget.input_type != 'hidden' %}
+    <p>
+      {{ field.label }}
+      {{ field(class_="form-control") }}
+  
+      {% for error in field.errors %}
+      <span class="form-text text-danger">{{ error }}</span>
       {% endfor %}
-    
-      <button class="btn btn-success btn-sm body-text" type="submit">Search</button>
-    </form>
-  </div>
+    </p>
+    {% endfor %}
+  
+    <button class="btn btn-success btn-sm" type="submit">Add Bookshelf</button>
+  
+  </form>
+</div>
   {% if not user.books %}
   <p class="body-text">You haven't added any books yet! Go to Find Books located in the nav bar to add books to your library.</p>
   {% endif %}
