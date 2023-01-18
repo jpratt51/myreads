@@ -861,7 +861,7 @@ def favorite_subject():
         db.session.commit()
         flash('Favorite subject added successfully', "success")
         return redirect('/favorite/my-favorites')
-    return render_template("favorite-subject.html", user=user, form=form)
+    return render_template("/favorite/favorite-subject.html", user=user, form=form)
 
 @app.route('/favorite/favorite-author', methods=["GET","POST"])
 def favorite_author():
