@@ -566,7 +566,7 @@ def delete_bookshelf_book(bookshelfid, bookid):
     db.session.delete(bookshelf_book)
     db.session.commit()
     flash("Book removed from bookshelf", "success")
-    return redirect('/bookshelf/my-bookshelves')
+    return redirect(f'/bookshelf/bookshelf-details/{bookshelfid}')
 
 # Book routes ********************************************************************************************************************************************************
 

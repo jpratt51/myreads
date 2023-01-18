@@ -4,28 +4,30 @@
 
 <h1 class="header">mybookshelf.<img src="https://i.ibb.co/dLKHBVS/bookshelf-pic.png" alt="Bookshelf-Image" class="bookshelf-img-header"></h1>
 <p class="lead body-text">View, add and remove books from bookshelf.</p>
-  <div class="form-container body-text">
-    <h3 class="body-text">{{bookshelf.name}}</h3>
+  <div class="form-container">
+    <h3 class="body-text">{{bookshelf.name}} bookshelf</h3>
     <p class="body-text">Search bookshelf books by author or title (or both)</p>
-    <form method="POST" class="form">
-
+    <form method="POST" class="body-text form">
+  
       {{ form.hidden_tag() }}
     
       {% for field in form
         if field.widget.input_type != 'hidden' %}
-      <p class="body-text">
+      <p>
         {{ field.label }}
         {{ field(class_="form-control") }}
     
         {% for error in field.errors %}
-        <span class="form-text text-danger body-text">{{ error }}</span>
+        <span class="form-text text-danger">{{ error }}</span>
         {% endfor %}
       </p>
       {% endfor %}
     
-      <button class="btn btn-success btn-sm body-text" type="submit">Search</button>
+      <button class="btn btn-success btn-sm" type="submit">Search</button>
+    
     </form>
   </div>
+
   {% if not bookshelf.books %}
   <div class="form-container">
   <p class="body-text center">This bookshelf is empty!</p>
@@ -50,7 +52,7 @@
               {% endif %}
               Publish Year: {{book.publish_year}}
             </p>
-            <a href="/book/delete-book/{{book.id}}" class="btn btn-outline-danger btn-sm">Remove</a>
+            <a href="/bookshelf/delete-bookshelf-book/{{bookshelf.id}}/{{book.id}}" class="btn btn-outline-danger btn-sm">Remove</a>
           </div>
         </div>
     {% endfor %}
@@ -69,7 +71,7 @@
               {% endif %}
               Publish Year: {{book.publish_year}}
             </p>
-            <a href="/book/delete-book/{{book.id}}" class="btn btn-outline-danger btn-sm">Remove</a>
+            <a href="/bookshelf/delete-bookshelf-book/{{bookshelf.id}}/{{book.id}}" class="btn btn-outline-danger btn-sm">Remove</a>
           </div>
         </div>
     {% endfor %}
@@ -88,7 +90,7 @@
               {% endif %}
               Publish Year: {{book.publish_year}}
             </p>
-            <a href="/book/delete-book/{{book.id}}" class="btn btn-outline-danger btn-sm">Remove</a>
+            <a href="/bookshelf/delete-bookshelf-book/{{bookshelf.id}}/{{book.id}}" class="btn btn-outline-danger btn-sm">Remove</a>
           </div>
         </div>
     {% endfor %}
@@ -107,7 +109,7 @@
               {% endif %}
               Publish Year: {{book.publish_year}}
             </p>
-            <a href="/book/delete-book/{{book.id}}" class="btn btn-outline-danger btn-sm">Remove</a>
+            <a href="/bookshelf/delete-bookshelf-book/{{bookshelf.id}}/{{book.id}}" class="btn btn-outline-danger btn-sm">Remove</a>
           </div>
         </div>
     {% endfor %}
@@ -126,7 +128,7 @@
               {% endif %}
               Publish Year: {{book.publish_year}}
             </p>
-            <a href="/book/delete-book/{{book.id}}" class="btn btn-outline-danger btn-sm">Remove</a>
+            <a href="/bookshelf/delete-bookshelf-book/{{bookshelf.id}}/{{book.id}}" class="btn btn-outline-danger btn-sm">Remove</a>
           </div>
         </div>
     {% endfor %}
@@ -145,7 +147,7 @@
               {% endif %}
               Publish Year: {{book.publish_year}}
             </p>
-            <a href="/book/delete-book/{{book.id}}" class="btn btn-outline-danger btn-sm">Remove</a>
+            <a href="/bookshelf/delete-bookshelf-book/{{bookshelf.id}}/{{book.id}}" class="btn btn-outline-danger btn-sm">Remove</a>
           </div>
         </div>
     {% endfor %}
@@ -164,7 +166,7 @@
               {% endif %}
               Publish Year: {{book.publish_year}}
             </p>
-            <a href="/book/delete-book/{{book.id}}" class="btn btn-outline-danger btn-sm">Remove</a>
+            <a href="/bookshelf/delete-bookshelf-book/{{bookshelf.id}}/{{book.id}}" class="btn btn-outline-danger btn-sm">Remove</a>
           </div>
         </div>
     {% endfor %}
@@ -183,7 +185,7 @@
               {% endif %}
               Publish Year: {{book.publish_year}}
             </p>
-            <a href="/book/delete-book/{{book.id}}" class="btn btn-outline-danger btn-sm">Remove</a>
+            <a href="/bookshelf/delete-bookshelf-book/{{bookshelf.id}}/{{book.id}}" class="btn btn-outline-danger btn-sm">Remove</a>
           </div>
         </div>
     {% endfor %}
@@ -202,7 +204,7 @@
               {% endif %}
               Publish Year: {{book.publish_year}}
             </p>
-            <a href="/book/delete-book/{{book.id}}" class="btn btn-outline-danger btn-sm">Remove</a>
+            <a href="/bookshelf/delete-bookshelf-book/{{bookshelf.id}}/{{book.id}}" class="btn btn-outline-danger btn-sm">Remove</a>
           </div>
         </div>
     {% endfor %}
@@ -221,7 +223,7 @@
               {% endif %}
               Publish Year: {{book.publish_year}}
             </p>
-            <a href="/book/delete-book/{{book.id}}" class="btn btn-outline-danger btn-sm">Remove</a>
+            <a href="/bookshelf/delete-bookshelf-book/{{bookshelf.id}}/{{book.id}}" class="btn btn-outline-danger btn-sm">Remove</a>
           </div>
         </div>
     {% endfor %}

@@ -7,27 +7,29 @@
 <div class="form-container form">
   <a href="/bookshelf/bookshelf-details/{{bookshelf.id}}" class="btn btn-outline-dark btn-sm">Back to bookshelf details</a>
 </div>
-<div class="form-container">
 
-  <form method="POST" class="form">
+<div class="form-container">
+  <form method="POST" class="body-text form">
     <p class="body-text">Search your books by author or title (or both) to add to bookshelf.</p>
     {{ form.hidden_tag() }}
   
     {% for field in form
       if field.widget.input_type != 'hidden' %}
-    <p class="body-text">
+    <p>
       {{ field.label }}
       {{ field(class_="form-control") }}
   
       {% for error in field.errors %}
-      <span class="form-text text-danger body-text">{{ error }}</span>
+      <span class="form-text text-danger">{{ error }}</span>
       {% endfor %}
     </p>
     {% endfor %}
   
-    <button class="btn btn-success body-text btn-sm" type="submit">Search</button>
+    <button class="btn btn-success btn-sm" type="submit">Search</button>
+  
   </form>
 </div>
+
 {% if not books %}
 <h3 class="body-text">Books in my library</h3>
 <div class="card-deck body-text">
