@@ -8,21 +8,21 @@ body {
     font-family: 'Montserrat Alternates', sans-serif;
 }
 
-.header {
-    font-family: 'Montserrat Alternates', sans-serif;
-    margin-top: .5em;
-    font-size: 8vw;
-}
-
 @media screen and (max-width: 400px) {
     .lead-text {
-        font-size: 4vw;
+        font-size: 6vw;
         text-align: center;
         font-family: 'Lexend Deca', sans-serif;
+        margin: 2rem auto;
+        color:#5cb85c;
+    }
+
+    .lead-text-hr {
+        margin-bottom: 3rem;
     }
 
     .body-text {
-        font-size: 3.5vw;
+        font-size: .75rem;
         text-align: center;
         font-family: 'Lexend Deca', sans-serif;
     }
@@ -39,7 +39,7 @@ body {
     }
 
     .book-img {
-        width: 10vw;
+        width: 2rem;
     }
 
     .book-details-img {
@@ -52,6 +52,21 @@ body {
         margin: 1em;
         text-align: left;
     }
+
+    .form {
+        margin: 2rem 2rem 2rem 0rem;
+        max-width: 50vw;
+        display: inline-block;
+        margin-left: auto;
+        margin-right: auto;
+        text-align: left;
+    }
+
+    .header {
+        font-family: 'Montserrat Alternates', sans-serif;
+        margin-top: .5em;
+        font-size: 2rem;
+    }
 }
 
 @media screen and (min-width: 400px) {
@@ -59,10 +74,16 @@ body {
         font-size: 1.75vw;
         text-align: center;
         font-family: 'Lexend Deca', sans-serif;
+        margin: 2rem auto;
+        color:#5cb85c;
+    }
+
+    .lead-text-hr {
+        margin-bottom: 3rem;
     }
 
     .body-text {
-        font-size: 1.5vw;
+        font-size: 1rem;
         text-align: center;
         font-family: 'Lexend Deca', sans-serif;
     }
@@ -73,7 +94,7 @@ body {
     }
 
     .book-img {
-        width: 5vw;
+        width: 3rem;
     }
 
     .book-details-img {
@@ -87,10 +108,23 @@ body {
     }
 
     .profile-cards {
-        margin-bottom: 2rem;
-        margin: auto;
+        margin: 0 auto 2rem auto;
         text-align: left;
-        
+    }
+
+    .form {
+        margin: 2rem 2rem 2rem 0rem;
+        width: 30vw;
+        display: inline-block;
+        margin-left: auto;
+        margin-right: auto;
+        text-align: left;
+    }
+
+    .header {
+        font-family: 'Montserrat Alternates', sans-serif;
+        margin: .5em auto;
+        font-size: 7rem;
     }
 }
 
@@ -241,15 +275,6 @@ body {
     color: white;
 }
 
-.form {
-    margin: 2rem 2rem 2rem 0rem;
-    max-width: 50vw;
-    display: inline-block;
-    margin-left: auto;
-    margin-right: auto;
-    text-align: left;
-}
-
 .review-btn, .review-date {
     margin: .5rem;
 }
@@ -298,6 +323,10 @@ body {
     margin: auto;
     margin-bottom: 3em;
     width: 23rem;
+}
+
+.user-card {
+    margin: 0 auto 3rem auto;
 }
 
 .review-header {

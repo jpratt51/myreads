@@ -42,15 +42,19 @@ API_BASE_URL = 'http://openlibrary.org/search.json'
 
 # home page, login, and logout routes ********************************************************************************************************************************************************
 
-@app.route("/")
-def homepage():
-    """Render myreads homepage for logged out/unregistered user."""
+@app.route('/')
+def user_homepage():
+    """Render myreads homepage for logged in/logged out user."""
 
     if "username" in session:
+        username = session["username"]
+        user = User.query.get_or_404(username)
         users = User.query.all()
-        return render_template("homepage.html", users=users)
-
-    return render_template("homepage.html")
+        num_books = Book.query.filter_by(user_username=username).count()
+        num_shelves = Bookshelf.query.filter_by(user_username=username).count()
+        last_review = Review.query.filter_by(user_username=username).first()
+        return render_template('/account/my-homepage.html', user=user, users=users, num_books=num_books, num_shelves=num_shelves, last_review=last_review)
+    return render_template("/account/my-homepage.html")
 
 @app.route('/login', methods=['GET', 'POST'])
 def login_user():
@@ -59,7 +63,7 @@ def login_user():
     if "username" in session :
         username = session["username"]
         flash("You are logged in", "primary")
-        return redirect(f"/account/my-homepage")
+        return redirect(f"/")
 
     else:
         form = LoginForm()
@@ -73,7 +77,7 @@ def login_user():
                 flash(f"Welcome back, {user.username}!", "primary")
 
                 session['username'] = user.username
-                return redirect(f'/account/my-homepage')
+                return redirect(f'/')
             else:
                 form.username.errors = ['Invalid username/password.']
         return render_template('login.html', form=form)
@@ -100,21 +104,6 @@ def account():
     user = User.query.get_or_404(username)
 
     return render_template('/account/my-account.html', user=user)
-
-@app.route('/account/my-homepage')
-def user_homepage():
-    """Render myreads homepage for logged in  user."""
-
-    if "username" not in session:
-        flash("Must be logged in", "danger")
-        return redirect('/login')
-
-    username = session["username"]
-    user = User.query.get_or_404(username)
-    num_books = Book.query.filter_by(user_username=username).count()
-    num_shelves = Bookshelf.query.filter_by(user_username=username).count()
-    last_review = Review.query.filter_by(user_username=username).first()
-    return render_template('/account/my-homepage.html', user=user, num_books=num_books, num_shelves=num_shelves, last_review=last_review)
 
 @app.route('/account/update-img/<username>', methods=["GET","POST"])
 def update_img(username):
@@ -194,7 +183,7 @@ def register_user():
             session.pop("email")
 
             flash(f'Welcome {new_user.username}! Account creation successful!', "success")
-            return redirect('/account/my-homepage')
+            return redirect('/')
         return render_template('/register/register.html', form=form)
     return redirect("/register/send-code")
 
