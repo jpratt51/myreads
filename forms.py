@@ -13,7 +13,7 @@ class UserForm(FlaskForm):
     img_url = StringField("Image URL (Optional, direct link only)")
 
 class UpdateImgForm(FlaskForm):
-    img_url = StringField("Image URL", validators=[InputRequired()])
+    img_url = StringField("Image URL (direct link only)", validators=[InputRequired()])
 
 class LoginForm(FlaskForm):
     username = StringField("Username", validators=[InputRequired()])
