@@ -11,7 +11,7 @@
         <p class="card-text review-header">Review for {{review.book.title}} by {{review.book.author}}</p>
         <p class="card-text">{{review.text}}</p>
         <div class="row">
-          <div class="card-text review-date">{{review.friendly_date}}<a action="/delete-review/{{review.id}}" class="btn btn-outline-danger body-text review-btn btn-sm">Delete</a></div>
+          <div class="card-text review-date">{{review.friendly_date}}<a action="/book/delete-review/{{review.id}}" class="btn btn-outline-danger body-text review-btn btn-sm">Delete</a></div>
         </div>
       </div>
     </div>

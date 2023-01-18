@@ -27,6 +27,12 @@ body {
         font-family: 'Lexend Deca', sans-serif;
     }
 
+    .body-text-left {
+        font-size: .75rem;
+        text-align: left;
+        font-family: 'Lexend Deca', sans-serif;
+    }
+
     .bookshelf-text {
         font-size: 3.5vw;
         text-align: center;
@@ -85,6 +91,12 @@ body {
     .body-text {
         font-size: 1rem;
         text-align: center;
+        font-family: 'Lexend Deca', sans-serif;
+    }
+
+    .body-text-left {
+        font-size: 1rem;
+        text-align: left;
         font-family: 'Lexend Deca', sans-serif;
     }
 

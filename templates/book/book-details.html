@@ -24,7 +24,7 @@
         {% if not book.read_dates %}
         <a href="/book/read-dates/{{book.id}}" class="btn btn-outline-info btn-sm">Edit Read Dates</a>
         {% endif %}
-        <a href="/delete-book/{{book.id}}" class="btn btn-outline-danger btn-sm">Delete</a>
+        <a href="/book/delete-book/{{book.id}}" class="btn btn-outline-danger btn-sm">Delete</a>
       </div>
     </div>
     {% if book.review %}
@@ -39,7 +39,7 @@
           Review publish date: {{review.friendly_date}}
         </p>
         <a href="/book/review/{{book.id}}" class="btn btn-outline-success  btn-sm">Edit Review</a>
-        <a href="/delete-review/{{review.id}}" class="btn btn-outline-danger btn-sm">Delete</a>
+        <a href="/book/delete-review/{{review.id}}" class="btn btn-outline-danger btn-sm">Delete</a>
       </div>
     </div>  
     {% endfor  %}
@@ -53,7 +53,7 @@
           {{rating.rating}} out of 5
         </p>
         <a href="/book/rating/{{book.id}}" class="btn btn-outline-success btn-sm">Edit Rating</a>
-        <a href="/delete-rating/{{rating.id}}" class="btn btn-outline-danger btn-sm">Delete</a>
+        <a href="/book/delete-rating/{{rating.id}}" class="btn btn-outline-danger btn-sm">Delete</a>
       </div>
     </div>  
     {% endfor %}
@@ -73,7 +73,7 @@
           {% endif %}
         </p>
         <a href="/book/read-dates/{{book.id}}" class="btn btn-outline-success btn-sm">Edit Read Dates</a>
-        <a href="/delete-read-dates/{{read_date.id}}" class="btn btn-outline-danger btn-sm">Delete</a>
+        <a href="/book/delete-read-dates/{{read_date.id}}" class="btn btn-outline-danger btn-sm">Delete</a>
       </div>
     </div>  
     {% endfor %}

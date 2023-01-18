@@ -29,12 +29,9 @@
   <br><p class="body-text">You haven't added any bookshelves yet!</p>
   {% endif %}
   {% for bookshelf in user.bookshelves %}
-
-
-
   <div class="row">
     <div class="bookshelf-text bookshelf">
-      <div class="card">
+      <div class="card body-text-left">
         {% if bookshelf.color == '#ffff00' %}
         <div class="card-body" style="background-color:{{bookshelf.color}}; color:black;">
         {% else %}
@@ -48,9 +45,9 @@
           {% endif %}
           <a href="/bookshelf/bookshelf-details/{{bookshelf.id}}" class="btn btn-outline-dark btn-sm">View Bookshelf</a>
           {% if bookshelf.color == '#ff0000' %}
-          <a href="/delete-bookshelf/{{bookshelf.id}}" class="btn btn-outline-warning btn-sm">Delete</a>
+          <a href="/bookshelf/delete-bookshelf/{{bookshelf.id}}" class="btn btn-outline-warning btn-sm">Delete</a>
           {% else %}
-          <a href="/delete-bookshelf/{{bookshelf.id}}" class="btn btn-outline-danger btn-sm">Delete</a>
+          <a href="/bookshelf/delete-bookshelf/{{bookshelf.id}}" class="btn btn-outline-danger btn-sm">Delete</a>
           {% endif %}
         </div>
       </div>
