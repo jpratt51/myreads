@@ -8,7 +8,7 @@ body {
     font-family: 'Montserrat Alternates', sans-serif;
 }
 
-@media screen and (max-width: 400px) {
+@media screen and (max-width: 500px) {
     .lead-text {
         font-size: 6vw;
         text-align: center;
@@ -75,7 +75,7 @@ body {
     }
 }
 
-@media screen and (min-width: 400px) {
+@media screen and (min-width: 500px) {
     .lead-text {
         font-size: 1.75vw;
         text-align: center;
