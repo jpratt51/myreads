@@ -17,9 +17,6 @@
           {% if num_shelves %}
           <p class="card-text">Bookshelves : {{num_shelves}}</p>
           {% endif %}
-          {% if user.authors or user.subjects %}
-          <hr>
-          {% endif %}
           {% if user.authors %}
           <div class="text-info">Favorite author(s): 
             {% for author in user.authors[:1] %}
