@@ -53,10 +53,9 @@
         <a href="/book/find-books" class="btn btn-outline-primary find-books-btn btn-sm">Find Books</a>
       </div>
     </div>
-    <div>
+    <div class="card profile-card">
       <div class="body-text">
         {% for book in user.books[-1:] %}
-          <div class="card profile-card">
             <div class="card-body" style="background-color:{{book.color}};">
               <h5 class="card-title"><img src="https://i.postimg.cc/25g7DvGg/white-book-cover.png" alt="" class="book-img"> Latest book entry:<br><br> <b>{{book.title}}</b> <p class="card-text book-author">
                 by {{book.author}}
@@ -79,28 +78,27 @@
               {% endif %}
               </p>
             </div>
-          </div>
         {% endfor %}
       </div>
     </div>
   </div>
-  
+  {% if user in users %}
+  <h3 class="lead-text">fellow myreads users:</h3>
+  {% endif %}
   {% for user in users %}
     {% if user.username != session["username"] %}
-      <h3 class="lead-text">fellow myreads users:</h3>
       <hr class="lead-text-hr">
-      <div class="row user-card">
-        <div class="card profile-card body-text border-primary user-card">
+      <div class="row">
+        <div class="card profile-card body-text border-primary">
           {% if user.img_url %}
           <img class="card-img-top profile-img img-fluid" src="{{user.img_url}}" alt="Profile-Pic">
           {% else %}
           <img class="card-img-top profile-img img-fluid" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTt1ceyneFkZchgkrwN7dZxWNl_C5Dctvc5BzNh_rEzPQ&s" alt="Profile-Pic">
           {% endif %}
-          <div class="card-body user-card">
+          <div class="card-body">
             <h5 class="card-title">Username: {{user.username}}</h5>
             {% if user.books %}
               {% if user.authors or user.subjects %}
-              <hr>
               {% endif %}
               {% if user.authors %}
               <div class="text-info">Favorite author(s): 
@@ -125,37 +123,34 @@
             {% endif %}
           </div>
         </div>
-        <div class="body-text user-card">
-          <div class="body-text">
+        <div class="card profile-card body-text">
             {% for book in user.books[-1:] %}
-              <div class="card profile-card">
-                <div class="card-body" style="background-color:{{book.color}};">
-                  <h5 class="card-title"><img src="https://i.postimg.cc/25g7DvGg/white-book-cover.png" alt="" class="book-img"> Latest book entry: <br><br> <b>{{book.title}}</b><br><br> <p class="card-text book-author">
-                    by {{book.author}}
-                  </p></h5>
-                  <p class="card-text">
-                    {% if book.subject != 'Not Found' %}
-                    Subject(s): {{book.subject}} | 
-                    {% endif %}
-                  </p>
-                  {% if book.read_dates %}
-                  <p class="card-text">
-                    {% for date in book.read_dates %}
-                    {% if date.start_date %}
-                    Start date: {{date.start_date}}
-                    {% endif %}
-                    {% if date.end_date %}
-                    | End date: {{date.end_date}}
-                    {% endif %}
-                    {% endfor %}
+              <div class="card-body" style="background-color:{{book.color}};">
+                <h5 class="card-title"><img src="https://i.postimg.cc/25g7DvGg/white-book-cover.png" alt="" class="book-img"> Latest book entry: <br><br> <b>{{book.title}}</b><br><br> <p class="card-text book-author">
+                  by {{book.author}}
+                </p></h5>
+                <p class="card-text">
+                  {% if book.subject != 'Not Found' %}
+                  Subject(s): {{book.subject}} | 
                   {% endif %}
-                  </p>
-                </div>
+                </p>
+                {% if book.read_dates %}
+                <p class="card-text">
+                  {% for date in book.read_dates %}
+                  {% if date.start_date %}
+                  Start date: {{date.start_date}}
+                  {% endif %}
+                  {% if date.end_date %}
+                  | End date: {{date.end_date}}
+                  {% endif %}
+                  {% endfor %}
+                {% endif %}
+                </p>
               </div>
             {% endfor %}
-          </div>
         </div>
       </div>
+      <hr>
     {% endif %}
   {% endfor %}
 

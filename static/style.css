@@ -8,7 +8,7 @@ body {
     font-family: 'Montserrat Alternates', sans-serif;
 }
 
-@media screen and (max-width: 500px) {
+@media screen and (max-width: 700px) {
     .lead-text {
         font-size: 6vw;
         text-align: center;
@@ -75,7 +75,7 @@ body {
     }
 }
 
-@media screen and (min-width: 500px) {
+@media screen and (min-width: 700px) {
     .lead-text {
         font-size: 1.75vw;
         text-align: center;
@@ -136,7 +136,7 @@ body {
     .header {
         font-family: 'Montserrat Alternates', sans-serif;
         margin: .5em auto;
-        font-size: 7rem;
+        font-size: 5rem;
     }
 }
 
@@ -340,7 +340,7 @@ body {
 .profile-card {
     margin: auto;
     margin-bottom: 3em;
-    width: 23rem;
+    width: 16rem;
 }
 
 .user-card {
