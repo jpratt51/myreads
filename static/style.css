@@ -84,6 +84,10 @@ body {
         color:#5cb85c;
     }
 
+    .center-cards {
+        transform: translate(20%)
+    }
+
     .lead-text-hr {
         margin-bottom: 3rem;
     }
@@ -154,10 +158,6 @@ body {
     margin-left: auto;
     margin-right: auto;
     text-align: left;
-}
-
-.book-details {
-    /* margin: auto; */
 }
 
 .book-title {
@@ -354,6 +354,10 @@ body {
 .align-left {
     text-align: center;
     margin: 4em auto 2em auto;
+}
+
+.left {
+    text-align: left;
 }
 
 @media screen and (max-width: 400px) {

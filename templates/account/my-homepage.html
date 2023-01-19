@@ -3,7 +3,7 @@
 {% block content %}
   {% if session["username"] %}
   <h1 class="header">myprofile.</h1><br>
-  <div class="row">
+  <div class="card-columns center-cards">
     <div class="card profile-card body-text border-primary">
       {% if user.img_url %}
       <a href="/account/update-img/{{user.username}}"><img class="card-img-top profile-img img-fluid" src="{{user.img_url}}" alt="Profile-Pic"></a>
@@ -50,32 +50,45 @@
       </div>
     </div>
     <div class="card profile-card">
-      <div class="body-text">
-        {% for book in user.books[-1:] %}
-            <div class="card-body" style="background-color:{{book.color}};">
-              <h5 class="card-title"><img src="https://i.postimg.cc/25g7DvGg/white-book-cover.png" alt="" class="book-img"> Latest book entry:<br><br> <b>{{book.title}}</b> <p class="card-text book-author">
-                by {{book.author}}
-              </p></h5>
-              <p class="card-text">
-                {% if book.subject != 'Not Found' %}
-                Subject(s): {{book.subject}} | 
+        <div class="body-text">
+          {% for book in user.books[-1:] %}
+              <div class="card-body left" style="background-color:{{book.color}};">
+                <h5 class="card-title"><img src="https://i.postimg.cc/25g7DvGg/white-book-cover.png" alt="" class="book-img"> Latest book entry:<br><br> <b>{{book.title}}</b> <p class="card-text book-author">
+                  by {{book.author}}
+                </p></h5>
+                <p class="card-text">
+                  {% if book.subject != 'Not Found' %}
+                  Subject(s): {{book.subject}} | 
+                  {% endif %}
+                </p>
+                {% if book.read_dates %}
+                <p class="card-text">
+                  {% for date in book.read_dates %}
+                  {% if date.start_date %}
+                  Start date: {{date.start_date}}
+                  {% endif %}
+                  {% if date.end_date %}
+                  | End date: {{date.end_date}}
+                  {% endif %}
+                  {% endfor %}
                 {% endif %}
-              </p>
-              {% if book.read_dates %}
-              <p class="card-text">
-                {% for date in book.read_dates %}
-                {% if date.start_date %}
-                Start date: {{date.start_date}}
-                {% endif %}
-                {% if date.end_date %}
-                | End date: {{date.end_date}}
-                {% endif %}
-                {% endfor %}
-              {% endif %}
-              </p>
-            </div>
-        {% endfor %}
+                </p>
+              </div>
+          {% endfor %}
+        </div>
       </div>
+      {% if last_review %}
+      <div class="card profile-card">
+        <div class="body-text">
+          <div class="card-body left">
+            <h5 class="card-title"><img src="https://i.postimg.cc/25g7DvGg/white-book-cover.png" alt="" class="book-img"> Latest book review:<br><br> <b>{{last_review.book.title}}</b> <p class="card-text book-author">
+              by {{last_review.book.author}}
+            </p></h5>
+                <p class="card-text">{{last_review.text}}</p>
+          </div>
+        </div>
+      </div>
+      {% endif %}
     </div>
   </div>
   {% if user in users %}
@@ -84,7 +97,7 @@
   {% for user in users %}
     {% if user.username != session["username"] %}
       <hr class="lead-text-hr">
-      <div class="row">
+      <div class="card-columns center-cards">
         <div class="card profile-card body-text border-primary">
           {% if user.img_url %}
           <img class="card-img-top profile-img img-fluid" src="{{user.img_url}}" alt="Profile-Pic">
@@ -119,6 +132,7 @@
             {% endif %}
           </div>
         </div>
+        {% if user.books %}
         <div class="card profile-card body-text">
             {% for book in user.books[-1:] %}
               <div class="card-body" style="background-color:{{book.color}};">
@@ -145,6 +159,7 @@
               </div>
             {% endfor %}
         </div>
+        {% endif %}
       </div>
       <hr>
     {% endif %}
