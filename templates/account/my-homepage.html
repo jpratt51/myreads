@@ -107,8 +107,6 @@
           <div class="card-body">
             <h5 class="card-title">Username: {{user.username}}</h5>
             {% if user.books %}
-              {% if user.authors or user.subjects %}
-              {% endif %}
               {% if user.authors %}
               <div class="text-info">Favorite author(s): 
                 {% for author in user.authors[:1] %}
