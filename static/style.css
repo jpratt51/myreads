@@ -312,6 +312,11 @@ body {
     text-align: center;
 }
 
+.account-btns {
+    display: block;
+    text-align: left;
+}
+
 .header, .center {
     text-align: center;
 }
@@ -330,7 +335,7 @@ body {
     margin-bottom: 3em;
     width: 16rem;
     text-align: left;
-    background-color: rgba(2, 117, 216, .2) !important;
+    background-color: rgba(2, 117, 216, .1) !important;
 }
 
 .review-card {
