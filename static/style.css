@@ -89,7 +89,7 @@ body {
     }
 
     .center-cards {
-        transform: translate(20%)
+        transform: translate(18%)
     }
 
     .lead-text-hr {
@@ -312,12 +312,8 @@ body {
     text-align: center;
 }
 
-.header {
+.header, .center {
     text-align: center;
-}
-
-.center {
-    text-align:center;
 }
 
 .center-profile-card {
@@ -329,6 +325,24 @@ body {
   }
 
 .profile-card {
+    margin-bottom: 2rem;
+    margin: auto;
+    margin-bottom: 3em;
+    width: 16rem;
+    text-align: left;
+    background-color: rgba(2, 117, 216, .2) !important;
+}
+
+.review-card {
+    margin-bottom: 2rem;
+    margin: auto;
+    margin-bottom: 3em;
+    width: 16rem;
+    text-align: left;
+    background-color: rgba(92, 184, 92, .2) !important;
+}
+
+.book-card {
     margin-bottom: 2rem;
     margin: auto;
     margin-bottom: 3em;

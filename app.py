@@ -54,7 +54,9 @@ def user_homepage():
         num_books = Book.query.filter_by(user_username=username).count()
         num_shelves = Bookshelf.query.filter_by(user_username=username).count()
         last_review = Review.query.filter_by(user_username=username).first()
-        return render_template('/account/my-homepage.html', user=user, users=users, num_books=num_books, num_shelves=num_shelves, last_review=last_review)
+        color_1 = rand_pastel_color()
+        color_2 = rand_pastel_color()
+        return render_template('/account/my-homepage.html', user=user, users=users, num_books=num_books, num_shelves=num_shelves, last_review=last_review, color_1=color_1, color_2=color_2)
     return render_template("/account/my-homepage.html")
 
 @app.route('/login', methods=['GET', 'POST'])

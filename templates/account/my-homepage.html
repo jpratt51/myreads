@@ -49,7 +49,7 @@
         <a href="/book/find-books" class="btn btn-outline-primary find-books-btn btn-sm">Find Books</a>
       </div>
     </div>
-    <div class="card profile-card">
+    <div class="card book-card">
         <div class="body-text">
           {% for book in user.books[-1:] %}
               <div class="card-body left" style="background-color:{{book.color}};">
@@ -78,7 +78,7 @@
         </div>
       </div>
       {% if last_review %}
-      <div class="card profile-card">
+      <div class="card review-card">
         <div class="body-text">
           <div class="card-body left">
             <h5 class="card-title"><img src="https://i.postimg.cc/25g7DvGg/white-book-cover.png" alt="" class="book-img"> Latest book review:<br><br> <b>{{last_review.book.title}}</b> <p class="card-text book-author">
