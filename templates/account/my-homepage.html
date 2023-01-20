@@ -3,7 +3,7 @@
 {% block content %}
   {% if session["username"] %}
   <h1 class="header">myprofile.</h1><br>
-  <div class="card-columns center-cards">
+  <div class="card-columns center-profile-cards">
     <div class="card profile-card body-text border-primary">
       {% if user.img_url %}
       <a href="/account/update-img/{{user.username}}"><img class="card-img-top profile-img img-fluid" src="{{user.img_url}}" alt="Profile-Pic"></a>
@@ -49,6 +49,7 @@
         <a href="/book/find-books" class="btn btn-outline-primary find-books-btn btn-sm">Find Books</a>
       </div>
     </div>
+    {% if user.books %}
     <div class="card book-card">
         <div class="body-text">
           {% for book in user.books[-1:] %}
@@ -90,6 +91,26 @@
       </div>
       {% endif %}
     </div>
+    {% else %}
+      <div class="card book-card">
+        <div class="body-text">
+          <div class="card-body left" style="background-color:black; color:white;">
+            <h5 class="card-title"><img src="https://i.postimg.cc/25g7DvGg/white-book-cover.png" alt="" class="book-img"> Latest book entry:<br><br> <b>No books added!</b></h5>
+            <p class="card-text">
+              Go to "Find Books" in the navbar to start adding books to your library!
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="card review-card">
+        <div class="body-text">
+          <div class="card-body left">
+            <h5 class="card-title"><img src="https://i.postimg.cc/25g7DvGg/white-book-cover.png" alt="" class="book-img"> Latest book review:<br><br> <b>You haven't reviewed any books yet!</b> </h5>
+                <p class="card-text">Go to "Edit Book" on your book details page to review a book in your library.</p>
+          </div>
+        </div>
+      </div>
+    {% endif %}
   </div>
   {% if user in users %}
   <h3 class="lead-text">fellow myreads users:</h3>
@@ -97,7 +118,11 @@
   {% for user in users %}
     {% if user.username != session["username"] %}
       <hr class="lead-text-hr">
-      <div class="card-columns center-cards">
+      {% if book in user.books %}
+      <div class="card-columns center-user-cards-1">
+      {% else %}
+      <div class="card-columns center-user-cards-2"></div>
+      {% endif %}
         <div class="card profile-card body-text border-primary">
           {% if user.img_url %}
           <img class="card-img-top profile-img img-fluid" src="{{user.img_url}}" alt="Profile-Pic">
@@ -157,6 +182,12 @@
               </div>
             {% endfor %}
         </div>
+        {% else %}
+          <div class="card profile-card body-text">
+              <div class="card-body" style="background-color:black; color:white;">
+                <h5 class="card-title"><img src="https://i.postimg.cc/25g7DvGg/white-book-cover.png" alt="" class="book-img"> Latest book entry: <br><br> <b>no books added!</b><br><br></h5>
+              </div>
+          </div>
         {% endif %}
       </div>
     {% endif %}

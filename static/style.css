@@ -88,8 +88,18 @@ body {
         color:#5cb85c;
     }
 
-    .center-cards {
+    .center-profile-cards {
         transform: translate(18%);
+        width: 50rem;
+    }
+
+    .center-user-cards-1 {
+        transform: translate(86%);
+        width: 50rem;
+    }
+
+    .center-user-cards-2 {
+        transform: translate(35%);
         width: 50rem;
     }
 
