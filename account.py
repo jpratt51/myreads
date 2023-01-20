@@ -54,8 +54,11 @@ def delete_account(username):
     db.session.commit()
     
     session.pop('username')
-    session.pop('code')
-    session.pop('email')
-    session.pop('verified')
+    if "code" in session:
+        session.pop('code')
+    if "email" in session:
+        session.pop('email')
+    if "verified" in session:
+        session.pop('verified')
     flash("Account deleted. Goodbye!", "success")
     return redirect('/')
