@@ -387,10 +387,10 @@ def delete_bookshelf(id):
     return remove_bookshelf(id)
 
 @app.route('/bookshelf/delete-bookshelf-book/<bookshelfid>/<bookid>', methods=["GET","DELETE"])
-def delete_bookshelf_book(bookshelf_id, book_id):
+def delete_bookshelf_book(bookshelfid, bookid):
     """Delete book from bookshelf."""
     
-    return remove_bookshelf_book(bookshelf_id, book_id)
+    return remove_bookshelf_book(bookshelfid, bookid)
 
 # book routes ********************************************************************************************************************************************************
 
