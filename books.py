@@ -19,7 +19,7 @@ connect_db(app)
 
 # Book functions ********************************************************************************************************************************************************
 
-def find_books():
+def book_finder():
     """Render user mylibrary page. Generate book search form. Handle search form and pass to search results page."""
 
     if "username" not in session:

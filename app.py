@@ -378,12 +378,6 @@ def bookshelves():
     
     return my_bookshelves()
 
-@app.route("/bookshelf/add-book/<book>", methods=["GET","POST"])
-def add_bookshelf_book(book):
-    """Generate and handle form to add book to database and update list of user's books."""
-
-    return bookshelf_add_book(book)
-
 # bookshelf delete routes ********************************************************************************************************************************************************
 
 @app.route('/bookshelf/delete-bookshelf/<int:id>', methods=["GET","DELETE"])
@@ -401,10 +395,10 @@ def delete_bookshelf_book(bookshelf_id, book_id):
 # book routes ********************************************************************************************************************************************************
 
 @app.route("/book/find-books", methods=['GET', 'POST'])
-def mylibrary():
+def find_books():
     """Render user mylibrary page. Generate book search form. Handle search form and pass to search results page."""
 
-    return find_books()
+    return book_finder()
 
 @app.route('/book/my-books', methods=['GET','POST'])
 def user_books():
@@ -418,6 +412,12 @@ def manual_book_entry():
     """Generate and handle form to add book manually to database and update list of user's books."""
 
     return form_book_entry()
+
+@app.route("/book/add-book/<book>", methods=["GET","POST"])
+def add_book(book):
+    """Generate and handle form to add book to database and update list of user's books."""
+
+    return add_library_book(book)
 
 @app.route('/book/book-details/<int:book_id>', methods=['GET','POST'])
 def book_details(book_id):

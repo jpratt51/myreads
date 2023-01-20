@@ -141,7 +141,7 @@ def my_bookshelves():
         return redirect('/bookshelf/my-bookshelves')
     return render_template("/bookshelf/my-bookshelves.html", form=form, user=user)
 
-def bookshelf_add_book(book):
+def add_library_book(book):
     """Generate and handle form to add book to database and update list of user's books."""
 
     if "username" not in session:
