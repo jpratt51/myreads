@@ -107,7 +107,7 @@ def update_img(username):
 
     return edit_profile_pic(username)
 
-@app.route('/account/delete-user/<username>', methods=["DELETE"])
+@app.route('/account/delete-user/<username>', methods=["GET","DELETE"])
 def delete_user(username):
     """Delete user account."""
     
