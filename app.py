@@ -222,6 +222,8 @@ def resend_verification_code():
         flash("Something went wrong. Please submit your email for a new verification code.", "primary")
         return redirect('/register/send-code')
 
+    user_email = session["email"]
+
     flash(f"Successfully re-sent verification code to {user_email}. Please enter the most recent verification code.", "success")
     return redirect('/register/verify-code')
 
