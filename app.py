@@ -15,8 +15,7 @@ import os
 from book import *
 from bookshelf import *
 from favorite import *
-
-# import * from bookshelf
+from account import *
 
 app = Flask(__name__)
 
@@ -100,45 +99,19 @@ def logout_user():
 def account():
     """View user account info. Delete user account."""
 
-    if "username" not in session:
-        flash("Must be logged in", "danger")
-        return redirect('/login')
-
-    username = session["username"]
-    user = User.query.get_or_404(username)
-
-    return render_template('/account/my-account.html', user=user)
+    return my_account()
 
 @app.route('/account/update-img/<username>', methods=["GET","POST"])
 def update_img(username):
     """Generate and handle form to update user profile picture."""
 
-    if "username" not in session:
-        flash("Must be logged in", "danger")
-        return redirect('/login')
-
-    form = UpdateImgForm()
-    username = session["username"]
-    if form.validate_on_submit():
-        user = User.query.filter_by(username=username).first() 
-
-        user.img_url = form.img_url.data
-
-        db.session.commit()
-        flash("Updated user profile picture", "success")
-        return redirect ("/account/my-account")
-    return render_template("/account/update-img.html", form=form) 
+    return edit_profile_pic(username)
 
 @app.route('/account/delete-user/<username>', methods=["DELETE"])
 def delete_user(username):
     """Delete user account."""
-    user = User.query.get_or_404(username)
-    db.session.delete(user)
-    db.session.commit()
     
-    session.pop('username')
-    flash("Account deleted. Goodbye!", "success")
-    return redirect('/')
+    return delete_account(username)
 
 # registration routes
 # *************************************************************************
