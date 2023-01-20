@@ -44,8 +44,7 @@ def mylibrary():
             
         return render_template("/book/find-books.html", form=form)
 
-@app.route('/book/my-books', methods=['GET','POST'])
-def user_books():
+def my_books():
     """Shows list of books associated with user. 
     Generate book search form for user's books."""
 
