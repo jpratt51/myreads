@@ -1,13 +1,12 @@
 
 from flask import Flask, redirect, session, flash, render_template
 from models import db, connect_db, User, Book, Review, Rating, ReadDate
-from forms import SearchBooksForm, ReviewForm, RatingForm, ReadDatesForm
+from forms import SearchBooksForm, ReviewForm, RatingForm, ReadDatesForm, BookForm
+from colors import rand_pastel_color
 from search import book_search 
 from datetime import date
 import string
 import os
-
-# import * from bookshelf
 
 app = Flask(__name__)
 
@@ -18,7 +17,7 @@ app.config['DEBUG_TB_INTERCEPT_REDIRECTS'] = False
 
 connect_db(app)
 
-# Book routes ********************************************************************************************************************************************************
+# Book functions ********************************************************************************************************************************************************
 
 def find_books():
     """Render user mylibrary page. Generate book search form. Handle search form and pass to search results page."""
@@ -82,6 +81,44 @@ def my_books():
             books = Book.query.filter(Book.user_username == username, Book.author.like(a)).all()
             return render_template ("/book/my-books.html", user=user, books=books, form=form)
     return render_template("/book/my-books.html", user=user, form=form)
+
+def form_book_entry():
+    """Generate and handle form to add book manually to database and update list of user's books."""
+
+    if "username" not in session:
+        flash("Must be logged in", "danger")
+        return redirect('/login')
+
+    form = BookForm()
+    username = session["username"]
+    user = User.query.get_or_404(username)
+
+    if form.validate_on_submit():
+        username = session["username"]
+        title = form.title.data
+        author = form.author.data
+        color = rand_pastel_color()
+
+        if form.subject.data:
+            subject = form.subject.data
+        else:
+            subject = ""
+        
+        if form.publish_year.data:
+            publish_year = form.publish_year.data
+        else:
+            publish_year = ""
+
+        cap_title = string.capwords(title)
+        cap_author = string.capwords(author)
+
+        new_book = Book(user_username=username, title=cap_title, author=cap_author, subject=subject, publish_year=publish_year, color=color)
+
+        db.session.add(new_book)
+        db.session.commit()
+        flash(f'{title} added to library', "success")
+        return redirect(f'/book/find-books')
+    return render_template('/book/add-book.html', form=form, user=user)
 
 def edit_book(book_id):
     """Show book details. Render form to edit book by adding it to a bookshelf, deleting it, rating and leaving a review.
@@ -227,7 +264,7 @@ def edit_read_dates(book_id):
         return redirect(f'/book/book-details/{book_id}')
     return render_template("/book/read-dates.html", form=form, user=user, book=book)
 
-# book delete routes ********************************************************************************************************************************************************
+# Book delete functions ********************************************************************************************************************************************************
 
 def remove_dates(id):
     """Delete read dates for user's book."""

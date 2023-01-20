@@ -13,6 +13,7 @@ from flask_bcrypt import Bcrypt
 import string
 import os
 from books import *
+from bookshelves import *
 
 # import * from bookshelf
 
@@ -357,217 +358,45 @@ def reset_password():
 def bookshelf_details(bookshelf_id):
     """Show details about a specific bookshelf, including name and subject as well as books associated with that bookshelf."""
 
-    if "username" not in session:
-        flash("Must be logged in", "danger")
-        return redirect('/login')
-
-    bookshelf = Bookshelf.query.get_or_404(bookshelf_id)
-    username = session["username"]
-    user = User.query.get_or_404(username)
-    form = SearchBooksForm()
-
-    if form.validate_on_submit():
-        book_title = form.book_title.data or ""
-        book_author = form.author.data or ""
-        title = string.capwords(book_title)
-        author = string.capwords(book_author)
-
-        if len(title) == 0 and len(author) == 0:
-            flash("Please enter book title and/or author", "danger")
-            return redirect ("/book/my-books")
-
-        elif len(title) > 0 and len(author) > 0:
-            t = "%{}%".format(title)
-            a = "%{}%".format(author)
-            books = Bookshelf.query.filter(Bookshelf.user_username == username, Bookshelf.books.title.like(t), Bookshelf.books.author.like(a)).all()
-            return render_template ("/bookshelf/bookshelf-search-results.html", user=user, books=books, bookshelf=bookshelf, form=form)
-
-        elif len(title) > 0 and len(author) == 0:
-            t = "%{}%".format(title)
-            books = Book.query.filter(Book.user_username == username, Book.title.like(t)).all()
-            print(t)
-            return render_template ("/bookshelf/bookshelf-search-results.html", user=user, books=books, bookshelf=bookshelf, form=form)
-        
-        elif len(title) == 0 and len(author) > 0:
-            a = "%{}%".format(author)
-            books = Book.query.filter(Book.user_username == username, Book.author.like(a)).all()
-            return render_template ("/bookshelf/bookshelf-search-results.html", user=user, books=books, bookshelf=bookshelf, form=form)
-    return render_template("/bookshelf/bookshelf-details.html", bookshelf=bookshelf, user=user, form=form)
+    return view_bookshelf_details(bookshelf_id)
 
 @app.route('/bookshelf/add-bookshelf-book/<int:bookshelf_id>', methods=["GET", "POST"])
 def add_bookshelf_book(bookshelf_id):
     """Display list of user books to add to bookshelf."""
 
-    if "username" not in session:
-        flash("Must be logged in", "danger")
-        return redirect('/login')
-
-    bookshelf = Bookshelf.query.get_or_404(bookshelf_id)
-    username = session["username"]
-    user = User.query.get_or_404(username)
-    form = SearchBooksForm()
-
-    if form.validate_on_submit():
-        book_title = form.book_title.data or ""
-        book_author = form.author.data or ""
-        title = string.capwords(book_title)
-        author = string.capwords(book_author)
-
-        if len(title) == 0 and len(author) == 0:
-            flash("Please enter book title and/or author", "danger")
-            return redirect (f"/bookshelf/add-bookshelf-book/{bookshelf_id}")
-
-        elif len(title) > 0 and len(author) > 0:
-            t = "%{}%".format(title)
-            a = "%{}%".format(author)
-            books = Bookshelf.query.filter(Bookshelf.user_username == username, Bookshelf.books.title.like(t), Bookshelf.books.author.like(a)).all()
-            return render_template("/bookshelf/add-bookshelf-book.html", user=user, books=books, bookshelf=bookshelf, form=form)
-
-        elif len(title) > 0 and len(author) == 0:
-            t = "%{}%".format(title)
-            books = Book.query.filter(Book.user_username == username, Book.title.like(t)).all()
-            print(t)
-            return render_template("/bookshelf/add-bookshelf-book.html", user=user, books=books, bookshelf=bookshelf, form=form)
-        
-        elif len(title) == 0 and len(author) > 0:
-            a = "%{}%".format(author)
-            books = Book.query.filter(Book.user_username == username, Book.author.like(a)).all()
-            return render_template("/bookshelf/add-bookshelf-book.html", user=user, books=books, bookshelf=bookshelf, form=form)
-    return render_template("/bookshelf/add-bookshelf-book.html", bookshelf=bookshelf, user=user, form=form)
+    return bookshelf_add_book(bookshelf_id)
 
 @app.route("/bookshelf/update-bookshelf/<int:bookshelf_id>/<int:book_id>", methods=["GET","POST"])
 def update_bookshelf(bookshelf_id, book_id):
     """Add book to bookshelf."""
 
-    if "username" not in session:
-        flash("Must be logged in", "danger")
-        return redirect('/login')
-    
-    bookshelf = Bookshelf.query.get_or_404(bookshelf_id)
-    book = Book.query.get_or_404(book_id)
-
-    bookshelf_book = BookshelfBook(bookshelf_id=bookshelf_id, book_id=book_id)
-
-    db.session.add(bookshelf_book)
-    db.session.commit()
-    flash(f"Successfully added book '{book.title}' to bookshelf '{bookshelf.name}'", "success")
-    return redirect(f'/bookshelf/add-bookshelf-book/{bookshelf_id}')
+    return edit_bookshelf(bookshelf_id, book_id)
 
 @app.route('/bookshelf/my-bookshelves', methods=['GET','POST'])
 def bookshelves():
     """Render form to create new bookshelf and display list of user's current bookshelves. """
     
-    if "username" not in session:
-        flash("Must be logged in", "danger")
-        return redirect('/login')
-
-    username = session["username"]
-    user = User.query.get_or_404(username)
-
-    form = BookshelfForm()
-    if form.validate_on_submit():
-
-        name = form.name.data
-        subject = form.subject.data or ""
-        color = rand_primary_color()
-        
-        new_bookshelf = Bookshelf(user_username=username, name=name, subject=subject, color=color)
-
-        db.session.add(new_bookshelf)
-        db.session.commit()
-        flash(f'Created bookshelf: {name}', "success")
-        return redirect('/bookshelf/my-bookshelves')
-    return render_template("/bookshelf/my-bookshelves.html", form=form, user=user)
-
-@app.route("/book/add-book", methods=["GET","POST"])
-def manual_book_entry():
-    """Generate and handle form to add book manually to database and update list of user's books."""
-
-    if "username" not in session:
-        flash("Must be logged in", "danger")
-        return redirect('/login')
-
-    form = BookForm()
-    username = session["username"]
-    user = User.query.get_or_404(username)
-
-    if form.validate_on_submit():
-        username = session["username"]
-        title = form.title.data
-        author = form.author.data
-        color = rand_pastel_color()
-
-        if form.subject.data:
-            subject = form.subject.data
-        else:
-            subject = ""
-        
-        if form.publish_year.data:
-            publish_year = form.publish_year.data
-        else:
-            publish_year = ""
-
-        cap_title = string.capwords(title)
-        cap_author = string.capwords(author)
-
-        new_book = Book(user_username=username, title=cap_title, author=cap_author, subject=subject, publish_year=publish_year, color=color)
-
-        db.session.add(new_book)
-        db.session.commit()
-        flash(f'{title} added to library', "success")
-        return redirect(f'/book/find-books')
-    return render_template('/book/add-book.html', form=form, user=user)
+    return my_bookshelves()
 
 @app.route("/bookshelf/add-book/<book>", methods=["GET","POST"])
-def add_book(book):
+def add_bookshelf_book(book):
     """Generate and handle form to add book to database and update list of user's books."""
 
-    if "username" not in session:
-        flash("Must be logged in", "danger")
-        return redirect('/login')
-
-    try:
-        dict = eval(book)
-    except SyntaxError:
-        flash("Oops, something went wrong! Please try again", "info")
-        return redirect("/book/find-books")
-
-    username = session["username"]
-    title = dict['title']
-    author = dict['author_name']
-    subject = dict['subject']
-    publish_year = dict['first_publish_year']
-    color = dict['color']
-
-    cap_title = string.capwords(title)
-    cap_author = string.capwords(author)
-
-    new_book = Book(user_username=username, title=cap_title, author=cap_author, subject=subject, publish_year=publish_year, color=color)
-
-    db.session.add(new_book)
-    db.session.commit()
-    flash(f'{title} added to library', "success")
-    return redirect(f'/book/find-books')
+    return bookshelf_add_book(book)
 
 # bookshelf delete routes ********************************************************************************************************************************************************
 
 @app.route('/bookshelf/delete-bookshelf/<int:id>', methods=["GET","DELETE"])
 def delete_bookshelf(id):
     """Delete user's bookshelf."""
-    bookshelf = Bookshelf.query.get_or_404(id)
-    db.session.delete(bookshelf)
-    db.session.commit()
-    flash("Deleted bookshelf", "success")
-    return redirect('/bookshelf/my-bookshelves')
+    
+    return remove_bookshelf(id)
 
 @app.route('/bookshelf/delete-bookshelf-book/<bookshelfid>/<bookid>', methods=["GET","DELETE"])
-def delete_bookshelf_book(bookshelfid, bookid):
+def delete_bookshelf_book(bookshelf_id, book_id):
     """Delete book from bookshelf."""
-    bookshelf_book = BookshelfBook.query.filter_by(bookshelf_id=bookshelfid, book_id=bookid).one_or_none()
-    db.session.delete(bookshelf_book)
-    db.session.commit()
-    flash("Book removed from bookshelf", "success")
-    return redirect(f'/bookshelf/bookshelf-details/{bookshelfid}')
+    
+    return remove_bookshelf_book(bookshelf_id, book_id)
 
 # book routes ********************************************************************************************************************************************************
 
@@ -583,6 +412,12 @@ def user_books():
     Generate book search form for user's books."""
 
     return my_books()
+
+@app.route("/book/add-book", methods=["GET","POST"])
+def manual_book_entry():
+    """Generate and handle form to add book manually to database and update list of user's books."""
+
+    return form_book_entry()
 
 @app.route('/book/book-details/<int:book_id>', methods=['GET','POST'])
 def book_details(book_id):
