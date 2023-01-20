@@ -604,10 +604,10 @@ def book_rating(book_id):
     return edit_rating(book_id)
 
 @app.route("/book/add-rating/<int:book_id>/<book_rating>", methods=['GET','POST'])
-def add_rating(book_id, book_rating):
+def add_book_rating(book_id, book_rating):
     """Add/update book rating. """
     
-    return edit_rating(book_id, book_rating)
+    return add_rating(book_id, book_rating)
 
 @app.route("/book/read-dates/<int:book_id>", methods=['GET','POST'])
 def book_read_dates(book_id):
