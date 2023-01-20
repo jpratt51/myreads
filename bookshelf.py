@@ -1,10 +1,11 @@
+"""Functions for bookshelf routes for myreads app."""
+
 from flask import Flask, redirect, session, flash, render_template
 from models import db, connect_db, User, Book, Bookshelf, BookshelfBook
 from forms import SearchBooksForm, BookshelfForm
 from colors import rand_primary_color
 import string
 import os
-from books import *
 
 app = Flask(__name__)
 

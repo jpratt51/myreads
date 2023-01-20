@@ -1,3 +1,4 @@
+"""Functions for book routes for myreads app."""
 
 from flask import Flask, redirect, session, flash, render_template
 from models import db, connect_db, User, Book, Review, Rating, ReadDate
