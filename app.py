@@ -22,10 +22,10 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'verysecret')
 app.config['DEBUG_TB_INTERCEPT_REDIRECTS'] = False
 
-app.config['MAIL_SERVER']='smtp.gmail.com'
+app.config['MAIL_SERVER']='smtp-relay.sendinblue.com'
 app.config['MAIL_PORT'] = 465
 app.config['MAIL_USERNAME'] = 'myreadsverify@gmail.com'
-app.config['MAIL_PASSWORD'] = 'vvztohuzogykuahh'
+app.config['MAIL_PASSWORD'] = 'p58UzAbIPFXsg0jm'
 app.config['MAIL_USE_TLS'] = False
 app.config['MAIL_USE_SSL'] = True
 
