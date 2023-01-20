@@ -90,6 +90,9 @@ def logout_user():
     """Logout current user."""
 
     session.pop('username')
+    session.pop('code')
+    session.pop('email')
+    session.pop('verified')
     flash("Goodbye!", "info")
     return redirect('/')
 
