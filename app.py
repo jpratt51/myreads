@@ -135,7 +135,7 @@ def register_user():
     if verified == True :
         form = UserForm()
         if form.validate_on_submit():
-            session["verified"] = False
+            session.pop("verified")
 
             u = User.query.filter_by(username=form.username.data).first()
 
