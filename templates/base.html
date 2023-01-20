@@ -23,7 +23,7 @@
           <ul class="nav navbar-nav flex-row float-right">
             {% if session['username'] %}
             <li class="nav-item">
-              <a class="nav-link pr-3 text-light body-text" href="/logout">Logout</a>
+              <a class="nav-link pr-3 text-light body-text" href="/">My Profile</a>
             </li>
             <li class="nav-item">
               <a class="nav-link pr-3 text-light body-text" href="/book/find-books">Find Books</a>
@@ -39,6 +39,9 @@
             </li>
             <li class="nav-item">
               <a class="nav-link pr-3 text-light body-text" href="/account/my-account">Account</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link pr-3 text-light body-text" href="/logout">Logout</a>
             </li>
             {% else %}
             <li class="nav-item">
