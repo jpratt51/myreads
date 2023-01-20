@@ -12,6 +12,7 @@ from datetime import date
 from flask_bcrypt import Bcrypt
 import string
 import os
+# import * from bookshelf
 
 app = Flask(__name__)
 
@@ -19,21 +20,17 @@ bcrypt = Bcrypt()
 
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('POSTGRESQL_URL', 'postgresql:///myreads')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'verysecret')
+app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY')
 app.config['DEBUG_TB_INTERCEPT_REDIRECTS'] = False
 
 app.config['MAIL_SERVER']='smtp-relay.sendinblue.com'
 app.config['MAIL_PORT'] = 465
 app.config['MAIL_USERNAME'] = 'myreadsverify@gmail.com'
-app.config['MAIL_PASSWORD'] = 'p58UzAbIPFXsg0jm'
+app.config['MAIL_PASSWORD'] = os.environ.get('SMTP_KEY')
 app.config['MAIL_USE_TLS'] = False
 app.config['MAIL_USE_SSL'] = True
 
 mail = Mail(app)
-
-verify_code = 0
-verified = False
-user_email = ""
 
 connect_db(app)
 
@@ -128,7 +125,7 @@ def update_img(username):
         return redirect ("/account/my-account")
     return render_template("/account/update-img.html", form=form) 
 
-@app.route('/account/delete-user/<username>', methods=["GET", "DELETE"])
+@app.route('/account/delete-user/<username>', methods=["DELETE"])
 def delete_user(username):
     """Delete user account."""
     user = User.query.get_or_404(username)
@@ -733,7 +730,6 @@ def add_rating(book_id, book_rating):
     db.session.commit()
     flash('Rating created successfully', "success")
     return redirect(f'/book/book-details/{book_id}')
-
 
 @app.route("/book/read-dates/<int:book_id>", methods=['GET','POST'])
 def book_read_dates(book_id):
