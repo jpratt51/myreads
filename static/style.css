@@ -89,7 +89,8 @@ body {
     }
 
     .center-cards {
-        transform: translate(18%)
+        transform: translate(18%);
+        width: 50rem;
     }
 
     .lead-text-hr {
