@@ -12,7 +12,7 @@ from datetime import date
 from flask_bcrypt import Bcrypt
 import string
 import os
-import * from books
+from books import *
 
 # import * from bookshelf
 
