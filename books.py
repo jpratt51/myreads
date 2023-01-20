@@ -152,7 +152,7 @@ def edit_rating(book_id):
         return redirect(f'/book/book-details/{book_id}')
     return render_template("/book/rating.html", form=form, user=user, book=book)
 
-def edit_rating(book_id, book_rating):
+def add_rating(book_id, book_rating):
     """Add/update book rating. """
     
     if "username" not in session:
