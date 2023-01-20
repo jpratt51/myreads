@@ -20,8 +20,7 @@ connect_db(app)
 
 # Book routes ********************************************************************************************************************************************************
 
-@app.route("/book/find-books", methods=['GET', 'POST'])
-def mylibrary():
+def find_books():
     """Render user mylibrary page. Generate book search form. Handle search form and pass to search results page."""
 
     if "username" not in session:
@@ -84,7 +83,6 @@ def my_books():
             return render_template ("/book/my-books.html", user=user, books=books, form=form)
     return render_template("/book/my-books.html", user=user, form=form)
 
-@app.route('/book/book-details/<int:book_id>', methods=['GET','POST'])
 def edit_book(book_id):
     """Show book details. Render form to edit book by adding it to a bookshelf, deleting it, rating and leaving a review.
     """
@@ -97,8 +95,7 @@ def edit_book(book_id):
 
     return render_template("/book/book-details.html", book=book)
 
-@app.route("/book/review/<int:book_id>", methods=['GET','POST'])
-def book_review(book_id):
+def edit_review(book_id):
     """Render and handle form to add/update user book review. """
     
     if "username" not in session:
@@ -126,8 +123,7 @@ def book_review(book_id):
         return redirect(f'/book/book-details/{book_id}')
     return render_template("/book/review.html", form=form, user=user, book=book)
 
-@app.route("/book/rating/<int:book_id>", methods=['GET','POST'])
-def book_rating(book_id):
+def edit_rating(book_id):
     """Render and handle form to add/update user book rating. """
     
     if "username" not in session:
@@ -156,8 +152,7 @@ def book_rating(book_id):
         return redirect(f'/book/book-details/{book_id}')
     return render_template("/book/rating.html", form=form, user=user, book=book)
 
-@app.route("/book/add-rating/<int:book_id>/<book_rating>", methods=['GET','POST'])
-def add_rating(book_id, book_rating):
+def edit_rating(book_id, book_rating):
     """Add/update book rating. """
     
     if "username" not in session:
@@ -181,8 +176,7 @@ def add_rating(book_id, book_rating):
     flash('Rating created successfully', "success")
     return redirect(f'/book/book-details/{book_id}')
 
-@app.route("/book/read-dates/<int:book_id>", methods=['GET','POST'])
-def book_read_dates(book_id):
+def edit_read_dates(book_id):
     """Render and handle form to add/update user book read dates. Accepts either start date or end date or both."""
     
     if "username" not in session:
@@ -235,8 +229,7 @@ def book_read_dates(book_id):
 
 # book delete routes ********************************************************************************************************************************************************
 
-@app.route('/book/delete-read-dates/<int:id>', methods=["GET","DELETE"])
-def delete_read_dates(id):
+def remove_dates(id):
     """Delete read dates for user's book."""
     read_date = ReadDate.query.get_or_404(id)
     db.session.delete(read_date)
@@ -244,8 +237,7 @@ def delete_read_dates(id):
     flash("Read dates deleted", "success")
     return redirect('/book/my-books')
 
-@app.route('/book/delete-rating/<int:id>', methods=["GET","DELETE"])
-def delete_rating(id):
+def remove_rating(id):
     """Delete rating for user's book."""
     rating = Rating.query.get_or_404(id)
     db.session.delete(rating)
@@ -253,8 +245,7 @@ def delete_rating(id):
     flash("Rating deleted", "success")
     return redirect('/book/my-books')
 
-@app.route('/book/delete-review/<int:id>', methods=["GET","DELETE"])
-def delete_review(id):
+def remove_review(id):
     """Delete review for user's book."""
     review = Review.query.get_or_404(id)
     db.session.delete(review)
@@ -262,8 +253,7 @@ def delete_review(id):
     flash("Review deleted", "success")
     return redirect('/book/my-books')
 
-@app.route('/book/delete-book/<int:id>', methods=["GET","DELETE"])
-def delete_book(id):
+def remove_book(id):
     """Delete user's book."""
     book = Book.query.get_or_404(id)
     db.session.delete(book)

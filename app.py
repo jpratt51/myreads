@@ -569,31 +569,13 @@ def delete_bookshelf_book(bookshelfid, bookid):
     flash("Book removed from bookshelf", "success")
     return redirect(f'/bookshelf/bookshelf-details/{bookshelfid}')
 
-# former book routes location
+# book routes ********************************************************************************************************************************************************
 
 @app.route("/book/find-books", methods=['GET', 'POST'])
 def mylibrary():
     """Render user mylibrary page. Generate book search form. Handle search form and pass to search results page."""
 
-    if "username" not in session:
-        flash("Must be logged in", "danger")
-        return redirect('/login')
-
-    else:
-        form = SearchBooksForm()
-
-        if form.validate_on_submit():
-            book_title = form.book_title.data or ""
-            author = form.author.data or ""
-
-            if len(book_title) == 0 and len(author) == 0:
-                flash("Please enter book title and/or author", "danger")
-                return redirect ("/mylibrary")
-  
-            book_list = book_search(book_title, author)
-            return render_template("/book/search-results.html", books=book_list, form=form)
-            
-        return render_template("/book/find-books.html", form=form)
+    return find_books()
 
 @app.route('/book/my-books', methods=['GET','POST'])
 def user_books():
@@ -603,191 +585,61 @@ def user_books():
     return my_books()
 
 @app.route('/book/book-details/<int:book_id>', methods=['GET','POST'])
-def edit_book(book_id):
+def book_details(book_id):
     """Show book details. Render form to edit book by adding it to a bookshelf, deleting it, rating and leaving a review.
     """
 
-    if "username" not in session:
-        flash("Must be logged in", "danger")
-        return redirect('/login')
-
-    book = Book.query.get_or_404(book_id)
-
-    return render_template("/book/book-details.html", book=book)
+    return edit_book(book_id)
 
 @app.route("/book/review/<int:book_id>", methods=['GET','POST'])
 def book_review(book_id):
     """Render and handle form to add/update user book review. """
     
-    if "username" not in session:
-        flash("Must be logged in", "danger")
-        return redirect('/login')
-
-    username = session["username"]
-    user = User.query.get_or_404(username)
-    book = Book.query.get_or_404(book_id)
-
-    form = ReviewForm()
-    if form.validate_on_submit():
-        if book.review:
-            book_review = book.review
-            for review in book_review :
-                review.text = form.review.data
-            db.session.commit()
-            flash('Review updated successfully', "success")
-            return redirect(f'/book/book-details/{book_id}')
-        text = form.review.data
-        review = Review(user_username=username, book_id=book_id, text=text)
-        db.session.add(review)
-        db.session.commit()
-        flash('Review created successfully', "success")
-        return redirect(f'/book/book-details/{book_id}')
-    return render_template("/book/review.html", form=form, user=user, book=book)
+    return edit_review(book_id)
 
 @app.route("/book/rating/<int:book_id>", methods=['GET','POST'])
 def book_rating(book_id):
     """Render and handle form to add/update user book rating. """
     
-    if "username" not in session:
-        flash("Must be logged in", "danger")
-        return redirect('/login')
-
-    username = session["username"]
-    user = User.query.get_or_404(username)
-    book = Book.query.get_or_404(book_id)
-
-    form = RatingForm()
-    if form.validate_on_submit():
-        if book.rating:
-            book_rating = book.rating
-            for rating in book_rating :
-                rating.rating = form.rating.data
-            db.session.add(book)
-            db.session.commit()
-            flash('Rating updated successfully', "success")
-            return redirect(f'/book/book-details/{book_id}')
-        rating = form.rating.data
-        rating = Rating(user_username=username, book_id=book_id, rating=rating)
-        db.session.add(rating)
-        db.session.commit()
-        flash('Review created successfully', "success")
-        return redirect(f'/book/book-details/{book_id}')
-    return render_template("/book/rating.html", form=form, user=user, book=book)
+    return edit_rating(book_id)
 
 @app.route("/book/add-rating/<int:book_id>/<book_rating>", methods=['GET','POST'])
 def add_rating(book_id, book_rating):
     """Add/update book rating. """
     
-    if "username" not in session:
-        flash("Must be logged in", "danger")
-        return redirect('/login')
-
-    username = session["username"]
-    book = Book.query.get_or_404(book_id)
-
-
-    if book.rating:
-        for rating in book.rating:
-            rating.rating = str(book_rating)
-            print(rating, "*******************************************************")
-            db.session.commit()
-            flash('Rating updated successfully', "success")
-            return redirect(f'/book/book-details/{book_id}')
-    new_rating = Rating(user_username=username, book_id=book_id, rating=book_rating)
-    db.session.add(new_rating)
-    db.session.commit()
-    flash('Rating created successfully', "success")
-    return redirect(f'/book/book-details/{book_id}')
+    return edit_rating(book_id, book_rating)
 
 @app.route("/book/read-dates/<int:book_id>", methods=['GET','POST'])
 def book_read_dates(book_id):
     """Render and handle form to add/update user book read dates. Accepts either start date or end date or both."""
     
-    if "username" not in session:
-        flash("Must be logged in", "danger")
-        return redirect('/login')
-
-    username = session["username"]
-    user = User.query.get_or_404(username)
-    book = Book.query.get_or_404(book_id)
-
-    form = ReadDatesForm()
-    if form.validate_on_submit():
-        today = date.today()
-        if form.start_date.data and form.end_date.data:
-            if form.end_date.data > today :
-                flash("End date must be on or before current date", "danger")
-                return redirect(f"/book/read-dates/{book_id}")
-            elif form.start_date.data > form.end_date.data :
-                flash("Start date must be on or before end date", "danger")
-                return redirect(f"/book/read-dates/{book_id}")
-        if book.read_dates:
-            book_read_dates = book.read_dates
-            for read_date in book_read_dates :
-                if form.start_date.data:
-                    read_date.start_date = str(form.start_date.data)
-                if form.end_date.data:
-                    read_date.end_date = str(form.end_date.data)
-
-            db.session.commit()
-
-            flash('Read dates updated successfully', "success")
-            return redirect(f'/book/book-details/{book_id}')
-
-        if form.start_date.data:
-            start_date = str(form.start_date.data)
-        else:
-            start_date = ""
-        if form.end_date.data:
-            end_date = str(form.end_date.data)
-        else:
-            end_date = ""
-        
-        rating = ReadDate(user_username=username, book_id=book_id, start_date=start_date, end_date=end_date)
-
-        db.session.add(rating)
-        db.session.commit()
-        flash('Read dates created successfully', "success")
-        return redirect(f'/book/book-details/{book_id}')
-    return render_template("/book/read-dates.html", form=form, user=user, book=book)
+    return edit_read_dates(book_id)
 
 # book delete routes ********************************************************************************************************************************************************
 
 @app.route('/book/delete-read-dates/<int:id>', methods=["GET","DELETE"])
 def delete_read_dates(id):
     """Delete read dates for user's book."""
-    read_date = ReadDate.query.get_or_404(id)
-    db.session.delete(read_date)
-    db.session.commit()
-    flash("Read dates deleted", "success")
-    return redirect('/book/my-books')
+    
+    return remove_dates(id)
 
 @app.route('/book/delete-rating/<int:id>', methods=["GET","DELETE"])
 def delete_rating(id):
     """Delete rating for user's book."""
-    rating = Rating.query.get_or_404(id)
-    db.session.delete(rating)
-    db.session.commit()
-    flash("Rating deleted", "success")
-    return redirect('/book/my-books')
+    
+    return remove_rating(id)
 
 @app.route('/book/delete-review/<int:id>', methods=["GET","DELETE"])
 def delete_review(id):
     """Delete review for user's book."""
-    review = Review.query.get_or_404(id)
-    db.session.delete(review)
-    db.session.commit()
-    flash("Review deleted", "success")
-    return redirect('/book/my-books')
+    
+    return remove_review(id)
 
 @app.route('/book/delete-book/<int:id>', methods=["GET","DELETE"])
 def delete_book(id):
     """Delete user's book."""
-    book = Book.query.get_or_404(id)
-    db.session.delete(book)
-    db.session.commit()
-    flash("Book deleted from library", "success")
-    return redirect('/book/my-books')
+    
+    return remove_book(id)
 
 # Favorites routes ********************************************************************************************************************************************************
 
