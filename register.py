@@ -112,8 +112,7 @@ def send_code_email():
     else:
         flash("Oops, something went wrong", "danger")
         return redirect("/register/send-code")
-    print(email)
-    msg = Message('Myreads email verification', sender = 'myreadsverify@gmail.com', recipients = [email])
+    msg = Message('Myreads email verification', sender = 'myreadscode@gmail.com', recipients = [email])
     msg.body = f"Verification code: {verify_code}"
     mail.send(msg)
 
