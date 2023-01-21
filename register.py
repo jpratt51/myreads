@@ -46,7 +46,8 @@ def register_account():
     if verified == True :
         form = UserForm()
         if form.validate_on_submit():
-            session.pop("verified")
+            if "verified" in session:
+                session.pop("verified")
 
             u = User.query.filter_by(username=form.username.data).first()
 
@@ -68,7 +69,8 @@ def register_account():
             db.session.add(new_user)
             db.session.commit()
             session['username'] = new_user.username
-            session.pop("email")
+            if "email" in session:
+                session.pop("email")
 
             flash(f'Welcome {new_user.username}! Account creation successful!', "success")
             return redirect('/')
@@ -145,7 +147,8 @@ def submit_code():
         if int(verify_code) == int(form.code.data):
 
             session["verified"] = True
-            session.pop("code")
+            if "code" in session:
+                session.pop("code")
 
             flash(f"Success! Email verified.", "success")
             return redirect("/register/register")
