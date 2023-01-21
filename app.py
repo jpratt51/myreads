@@ -158,7 +158,7 @@ def resend_reset_code():
 def reset_password():
     """Generate form to reset user password.
 
-    Upon successful password reset, direct user to login page."""
+    Reset user password in database and redirect user to login page."""
 
     return password_reset()
 
@@ -168,13 +168,17 @@ def reset_password():
 
 @app.route('/bookshelf/bookshelf-details/<int:bookshelf_id>', methods=['GET','POST'])
 def bookshelf_details(bookshelf_id):
-    """Show details about a specific bookshelf, including name and subject as well as books associated with that bookshelf."""
+    """Show details about a specific bookshelf, including name and subject as well as books associated with that bookshelf.
+    
+    Handle form to search for books on user bookshelf and display results."""
 
     return view_bookshelf_details(bookshelf_id)
 
-@app.route('/bookshelf/add-bookshelf-book/<int:bookshelf_id>', methods=["GET", "POST"])
+@app.route('/bookshelf/add-book/<int:bookshelf_id>', methods=["GET", "POST"])
 def add_bookshelf_book(bookshelf_id):
-    """Display list of user books to add to bookshelf."""
+    """Display list of user books to add to bookshelf.
+    
+    Handle search form submission and display search results."""
 
     return bookshelf_add_book(bookshelf_id)
 
@@ -182,7 +186,7 @@ def add_bookshelf_book(bookshelf_id):
 def update_bookshelf(bookshelf_id, book_id):
     """Add book to bookshelf."""
 
-    return edit_bookshelf(bookshelf_id, book_id)
+    return add_to_bookshelf(bookshelf_id, book_id)
 
 @app.route('/bookshelf/my-bookshelves', methods=['GET','POST'])
 def bookshelves():
@@ -198,7 +202,7 @@ def delete_bookshelf(id):
     
     return remove_bookshelf(id)
 
-@app.route('/bookshelf/delete-bookshelf-book/<bookshelfid>/<bookid>', methods=["GET","DELETE"])
+@app.route('/bookshelf/delete-book/<bookshelfid>/<bookid>', methods=["GET","DELETE"])
 def delete_bookshelf_book(bookshelfid, bookid):
     """Delete book from bookshelf."""
     

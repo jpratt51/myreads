@@ -29,11 +29,11 @@
   {% if not bookshelf.books %}
   <div class="form-container">
   <p class="body-text center">This bookshelf is empty!</p>
-  <a href="/bookshelf/add-bookshelf-book/{{bookshelf.id}}" class="btn btn-primary btn-sm add-bookshelf-book-btn">Add books to {{bookshelf.name}} bookshelf</a>
+  <a href="/bookshelf/add-book/{{bookshelf.id}}" class="btn btn-primary btn-sm add-bookshelf-book-btn">Add books to {{bookshelf.name}} bookshelf</a>
   </div>
   {% else %}
   <div class="form-container">
-  <a href="/bookshelf/add-bookshelf-book/{{bookshelf.id}}" class="btn btn-outline-primary btn-sm add-bookshelf-book-btn form">Add books to {{bookshelf.name}} bookshelf</a>
+  <a href="/bookshelf/add-book/{{bookshelf.id}}" class="btn btn-outline-primary btn-sm add-bookshelf-book-btn form">Add books to {{bookshelf.name}} bookshelf</a>
   </div>
   <div class="form-container">
   <a href="/bookshelf/bookshelf-details/{{bookshelf.id}}" class="btn btn-outline-info btn-sm add-bookshelf-book-btn form">Back to {{bookshelf.name}} bookshelf details</a>

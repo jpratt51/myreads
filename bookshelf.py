@@ -21,7 +21,9 @@ connect_db(app)
 # **************************************************************************
 
 def view_bookshelf_details(bookshelf_id):
-    """Show details about a specific bookshelf, including name and subject as well as books associated with that bookshelf."""
+    """Show details about a specific bookshelf, including name and subject as well as books associated with that bookshelf.
+    
+    Handle form to search for books on user bookshelf and display results."""
 
     if "username" not in session:
         flash("Must be logged in", "danger")
@@ -61,7 +63,9 @@ def view_bookshelf_details(bookshelf_id):
     return render_template("/bookshelf/bookshelf-details.html", bookshelf=bookshelf, user=user, form=form)
 
 def bookshelf_add_book(bookshelf_id):
-    """Display list of user books to add to bookshelf."""
+    """Display list of user books to add to bookshelf. Display search form for user books.
+    
+    Handle search form submission and display search results."""
 
     if "username" not in session:
         flash("Must be logged in", "danger")
@@ -80,27 +84,27 @@ def bookshelf_add_book(bookshelf_id):
 
         if len(title) == 0 and len(author) == 0:
             flash("Please enter book title and/or author", "danger")
-            return redirect (f"/bookshelf/add-bookshelf-book/{bookshelf_id}")
+            return redirect (f"/bookshelf/add-book/{bookshelf_id}")
 
         elif len(title) > 0 and len(author) > 0:
             t = "%{}%".format(title)
             a = "%{}%".format(author)
             books = Bookshelf.query.filter(Bookshelf.user_username == username, Bookshelf.books.title.like(t), Bookshelf.books.author.like(a)).all()
-            return render_template("/bookshelf/add-bookshelf-book.html", user=user, books=books, bookshelf=bookshelf, form=form)
+            return render_template("/bookshelf/add-book.html", user=user, books=books, bookshelf=bookshelf, form=form)
 
         elif len(title) > 0 and len(author) == 0:
             t = "%{}%".format(title)
             books = Book.query.filter(Book.user_username == username, Book.title.like(t)).all()
             print(t)
-            return render_template("/bookshelf/add-bookshelf-book.html", user=user, books=books, bookshelf=bookshelf, form=form)
+            return render_template("/bookshelf/add-book.html", user=user, books=books, bookshelf=bookshelf, form=form)
         
         elif len(title) == 0 and len(author) > 0:
             a = "%{}%".format(author)
             books = Book.query.filter(Book.user_username == username, Book.author.like(a)).all()
-            return render_template("/bookshelf/add-bookshelf-book.html", user=user, books=books, bookshelf=bookshelf, form=form)
-    return render_template("/bookshelf/add-bookshelf-book.html", bookshelf=bookshelf, user=user, form=form)
+            return render_template("/bookshelf/add-book.html", user=user, books=books, bookshelf=bookshelf, form=form)
+    return render_template("/bookshelf/add-book.html", bookshelf=bookshelf, user=user, form=form)
 
-def edit_bookshelf(bookshelf_id, book_id):
+def add_to_bookshelf(bookshelf_id, book_id):
     """Add book to bookshelf."""
 
     if "username" not in session:
@@ -115,7 +119,7 @@ def edit_bookshelf(bookshelf_id, book_id):
     db.session.add(bookshelf_book)
     db.session.commit()
     flash(f"Successfully added book '{book.title}' to bookshelf '{bookshelf.name}'", "success")
-    return redirect(f'/bookshelf/add-bookshelf-book/{bookshelf_id}')
+    return redirect(f'/bookshelf/add-book/{bookshelf_id}')
 
 def my_bookshelves():
     """Render form to create new bookshelf and display list of user's current bookshelves. """
