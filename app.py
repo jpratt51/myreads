@@ -2,15 +2,9 @@
 
 from flask import Flask, redirect, session, flash, render_template
 from flask_debugtoolbar import DebugToolbarExtension
-from models import db, connect_db, User, Book, Bookshelf, Review, Rating, ReadDate, Subject, Author, BookshelfBook
-from forms import UserForm, LoginForm, SendCodeForm, VerifyEmailForm, SearchBooksForm, BookshelfForm, ReviewForm, RatingForm, ReadDatesForm, SubjectForm, AuthorForm, ResetPasswordForm, UpdateImgForm, BookForm
-from flask_mail import Mail, Message
-from random import randint
-from search import book_search 
-from colors import rand_dark_color, rand_primary_color, rand_universe_color, rand_pastel_color
-from datetime import date
-from flask_bcrypt import Bcrypt
-import string
+from models import db, connect_db, User, Book, Bookshelf, Review
+from forms import LoginForm
+from colors import rand_pastel_color
 import os
 from book import *
 from bookshelf import *
@@ -21,21 +15,10 @@ from password import *
 
 app = Flask(__name__)
 
-bcrypt = Bcrypt()
-
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('POSTGRESQL_URL', 'postgresql:///myreads')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY')
 app.config['DEBUG_TB_INTERCEPT_REDIRECTS'] = False
-
-app.config['MAIL_SERVER']='smtp-relay.sendinblue.com'
-app.config['MAIL_PORT'] = 465
-app.config['MAIL_USERNAME'] = 'myreadscode@gmail.com'
-app.config['MAIL_PASSWORD'] = os.environ.get('SMTP_KEY')
-app.config['MAIL_USE_TLS'] = False
-app.config['MAIL_USE_SSL'] = True
-
-mail = Mail(app)
 
 connect_db(app)
 
@@ -101,7 +84,7 @@ def logout_user():
     flash("Goodbye!", "info")
     return redirect('/')
 
-# account routes ********************************************************************************************************************************************************
+# account routes (account functions located in account.py) ********************************************************************************************************************************************************
 
 @app.route('/account/my-account')
 def account():
@@ -121,7 +104,7 @@ def delete_user(username):
     
     return delete_account(username)
 
-# registration routes
+# registration routes (registration functions located in register.py)
 # *************************************************************************
 # *************************************************************************
 
@@ -151,7 +134,7 @@ def code_verification():
     
     return submit_code()
 
-# Password reset routes ********************************************************************************************************************************************************
+# Password reset routes (password reset functions located in password.py) ********************************************************************************************************************************************************
 
 @app.route("/password/reset-code", methods=["GET","POST"])
 def reset_code():
@@ -179,7 +162,7 @@ def reset_password():
 
     return password_reset()
 
-# Bookshelf routes
+# Bookshelf routes (bookshelf functions located in bookshelf.py)
 # **************************************************************************
 # **************************************************************************
 
@@ -221,7 +204,7 @@ def delete_bookshelf_book(bookshelfid, bookid):
     
     return remove_bookshelf_book(bookshelfid, bookid)
 
-# book routes ********************************************************************************************************************************************************
+# book routes (book functions located in book.py) ********************************************************************************************************************************************************
 
 @app.route("/book/find-books", methods=['GET', 'POST'])
 def find_books():
@@ -305,7 +288,7 @@ def delete_book(id):
     
     return remove_book(id)
 
-# Favorites routes ********************************************************************************************************************************************************
+# Favorites routes (favorites functions located in favorite.py) ********************************************************************************************************************************************************
 
 @app.route('/favorite/my-favorites', methods=["GET","POST"])
 def favorites():
