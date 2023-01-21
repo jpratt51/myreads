@@ -16,7 +16,7 @@ app.config['DEBUG_TB_INTERCEPT_REDIRECTS'] = False
 
 app.config['MAIL_SERVER']='smtp-relay.sendinblue.com'
 app.config['MAIL_PORT'] = 465
-app.config['MAIL_USERNAME'] = 'myreadscode@gmail.com'
+app.config['MAIL_USERNAME'] = os.environ.get('SMTP_ACCT')
 app.config['MAIL_PASSWORD'] = os.environ.get('SMTP_KEY')
 app.config['MAIL_USE_TLS'] = False
 app.config['MAIL_USE_SSL'] = True
