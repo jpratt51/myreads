@@ -44,8 +44,8 @@ def book_finder():
         return render_template("/book/find-books.html", form=form)
 
 def my_books():
-    """Shows list of books associated with user. 
-    Generate book search form for user's books."""
+    """Generate book search form for user's books. Display search results on html page. 
+    """
 
     if "username" not in session:
         flash("Must be logged in", "danger")
@@ -121,8 +121,38 @@ def form_book_entry():
         return redirect(f'/book/find-books')
     return render_template('/book/add-book.html', form=form, user=user)
 
-def edit_book(book_id):
-    """Show book details. Render form to edit book by adding it to a bookshelf, deleting it, rating and leaving a review.
+def add_library_book(book):
+    """Add book to user's library."""
+
+    if "username" not in session:
+        flash("Must be logged in", "danger")
+        return redirect('/login')
+
+    try:
+        dict = eval(book)
+    except SyntaxError:
+        flash("Oops, something went wrong! Please try again", "info")
+        return redirect("/book/find-books")
+
+    username = session["username"]
+    title = dict['title']
+    author = dict['author_name']
+    subject = dict['subject']
+    publish_year = dict['first_publish_year']
+    color = dict['color']
+
+    cap_title = string.capwords(title)
+    cap_author = string.capwords(author)
+
+    new_book = Book(user_username=username, title=cap_title, author=cap_author, subject=subject, publish_year=publish_year, color=color)
+
+    db.session.add(new_book)
+    db.session.commit()
+    flash(f'{title} added to library', "success")
+    return redirect(f'/book/find-books')
+
+def book_details_page(book_id):
+    """Render book details page.
     """
 
     if "username" not in session:

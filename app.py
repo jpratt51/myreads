@@ -229,18 +229,18 @@ def manual_book_entry():
 
     return form_book_entry()
 
-@app.route("/book/add-book/<book>", methods=["GET","POST"])
+@app.route("/book/add-book/<book>", methods=["POST"])
 def add_book(book):
-    """Generate and handle form to add book to database and update list of user's books."""
+    """Add book to database."""
 
     return add_library_book(book)
 
-@app.route('/book/book-details/<int:book_id>', methods=['GET','POST'])
+@app.route('/book/book-details/<int:book_id>', methods=['GET'])
 def book_details(book_id):
     """Show book details. Render form to edit book by adding it to a bookshelf, deleting it, rating and leaving a review.
     """
 
-    return edit_book(book_id)
+    return book_details_page(book_id)
 
 @app.route("/book/review/<int:book_id>", methods=['GET','POST'])
 def book_review(book_id):
@@ -248,17 +248,17 @@ def book_review(book_id):
     
     return edit_review(book_id)
 
-@app.route("/book/rating/<int:book_id>", methods=['GET','POST'])
-def book_rating(book_id):
-    """Render and handle form to add/update user book rating. """
-    
-    return edit_rating(book_id)
-
 @app.route("/book/add-rating/<int:book_id>/<book_rating>", methods=['GET','POST'])
 def add_book_rating(book_id, book_rating):
     """Add/update book rating. """
     
     return add_rating(book_id, book_rating)
+
+@app.route("/book/rating/<int:book_id>", methods=['GET','POST'])
+def edit_book_rating(book_id):
+    """Render and handle form to add/update user book rating. """
+    
+    return edit_rating(book_id)
 
 @app.route("/book/read-dates/<int:book_id>", methods=['GET','POST'])
 def book_read_dates(book_id):
@@ -270,7 +270,7 @@ def book_read_dates(book_id):
 
 @app.route('/book/delete-read-dates/<int:id>', methods=["GET","DELETE"])
 def delete_read_dates(id):
-    """Delete read dates for user's book."""
+    """Find and delete read dates for user's book."""
     
     return remove_dates(id)
 
@@ -294,7 +294,7 @@ def delete_book(id):
 
 # Favorites routes (favorites functions located in favorite.py) ********************************************************************************************************************************************************
 
-@app.route('/favorite/my-favorites', methods=["GET","POST"])
+@app.route('/favorite/my-favorites', methods=["GET"])
 def favorites():
     """Render favorites page."""
 
