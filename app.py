@@ -229,7 +229,7 @@ def manual_book_entry():
 
     return form_book_entry()
 
-@app.route("/book/add-book/<book>", methods=["POST"])
+@app.route("/book/add-book/<book>", methods=["GET","POST"])
 def add_book(book):
     """Add book to database."""
 
