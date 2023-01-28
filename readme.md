@@ -31,7 +31,7 @@ myreads. allows users to:
 | GET\/account/my-account  | Display user account details |
 | GET\/account/update-img/<username>  | Display form to update user profile image |
 | POST\/account/update-img/<username>  | Update user profile image to database |
-| DELETE\/account/delete-user/<username>  | Delete user account |
+| GET\DELETE\/account/delete-user/<username>  | Delete user account |
 
 ### Registration End Points
 
@@ -67,7 +67,7 @@ myreads. allows users to:
 | POST\/book/my-books | Display search results on html page. |
 | GET\/book/add-book | Generate form to manually add book  to database. |
 | POST\/book/add-book | Handle form submission, add book to database and update list of user's books. |
-| POST\/book/add-book/<book> | Handle form submission, add book to database and update list of user's books. |
+| GET\POST\/book/add-book/<book> | Handle form submission, add book to database and update list of user's books. |
 | GET\/book/book-details/<book_id> | Show book details. Render form to edit book. |
 | GET\/book/review/<book_id> | Render book add/edit review form. |
 | POST\/book/review/<book_id> | Handle book review form submission and update database. |
@@ -77,27 +77,25 @@ myreads. allows users to:
 | POST\/book/rating/<book_id> | Handle book rating form submission and update database. |
 | GET\/book/read-dates/<book_id> | Render book add/edit read dates form. |
 | POST\/book/read-dates/<book_id> | Handle book read dates form submission and update database. |
-| DELETE\/book/delete-read-dates/<id> | Delete selected book read dates. |
-| DELETE\/book/delete-rating/<id> | Delete selected book rating. |
-| DELETE\/book/delete-review/<id> | Delete selected book review. |
-| DELETE\/book/delete-book/<id> | Delete selected user's book. |
+| GET/DELETE\/book/delete-read-dates/<read_dates_id> | Delete selected book read dates. |
+| GET/DELETE\/book/delete-rating/<rating_id> | Delete selected book rating. |
+| GET/DELETE\/book/delete-review/<review_id> | Delete selected book review. |
+| GET/DELETE\/book/delete-book/<book_id> | Delete selected user's book. |
 
 ### Bookshelf End Points
 
 | EndPoint      | Functionality |
 | ----------- | ----------- |
-| GET\/bookshelf/bookshelf-details/<int:bookshelf_id>    | Show details about a specific bookshelf, including name and subject as well as books associated with that bookshelf |
-| POST\/bookshelf/bookshelf-details/<int:bookshelf_id>    | Handle form to search for books on user bookshelf and display results |
-| GET\/bookshelf/add-book/<int:bookshelf_id>    | Display list of user books to add to bookshelf. Display search form for user's books |
-| POST\/bookshelf/add-book/<int:bookshelf_id>    | Handle search form submission for user's books and display search results |
-| GET\/bookshelf/update-bookshelf/<int:bookshelf_id>/<int:book_id>  | Query database for book |
-| POST\/bookshelf/update-bookshelf/<int:bookshelf_id>/<int:book_id>  | Add book to bookshelf |
+| GET\/bookshelf/bookshelf-details/<bookshelf_id>    | Show details about a specific bookshelf, including name and subject as well as books associated with that bookshelf |
+| POST\/bookshelf/bookshelf-details/<bookshelf_id>    | Handle form to search for books on user bookshelf and display results |
+| GET\/bookshelf/add-book/<bookshelf_id>    | Display list of user books to add to bookshelf. Display search form for user's books |
+| POST\/bookshelf/add-book/<bookshelf_id>    | Handle search form submission for user's books and display search results |
+| GET\/bookshelf/update-bookshelf/<bookshelf_id>/<book_id>  | Query database for book |
+| POST\/bookshelf/update-bookshelf/<bookshelf_id>/<book_id>  | Add book to bookshelf |
 | GET\/bookshelf/my-bookshelves | Display form to create new bookshelf and display list of user's current bookshelves |
 | POST\/bookshelf/my-bookshelves  | Handle form to create new bookshelf |
-| GET\/bookshelf/delete-bookshelf/<int:id>  | Query database for bookshelf |
-| DELETE\/bookshelf/delete-bookshelf/<int:id>  | Delete bookshelf |
-| GET\/bookshelf/delete-book/<int:id>  | Query database for bookshelf book |
-| DELETE\/bookshelf/delete-book/<int:id>  | Delete bookshelf book |
+| GET\DELETE\/bookshelf/delete-bookshelf/<bookshelf_id>  | Delete bookshelf |
+| GET\DELETE\/bookshelf/delete-book/<bookshelf_id>/<book_id>  | Delete bookshelf book |
 
 ### Favorites End Points
 
@@ -108,8 +106,8 @@ myreads. allows users to:
 | POST\/favorite/favorite-subject | Handle favorite subject form submission and add subject to database. |
 | GET\/favorite/favorite-author | Generate favorite author form |
 | POST\/favorite/favorite-author | Handle favorite author form submission and add author to database. |
-| DELETE\/favorite/delete-subject | Delete user favorite subject |
-| DELETE\/favorite/delete-author | Delete user favorite author |
+| GET\DELETE\/favorite/delete-subject/<subject_id> | Delete user favorite subject |
+| GET\DELETE\/favorite/delete-author/<author_id> | Delete user favorite author |
 
 ## Prerequisites
 
