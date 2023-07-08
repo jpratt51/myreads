@@ -8,7 +8,7 @@ from random import randint
 import os
 
 app = Flask(__name__)
-
+print(os.getenv('SECRET_KEY'))
 app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('POSTGRESQL_URL', 'postgresql:///myreads')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SECRET_KEY'] = os.getenv('SECRET_KEY')
