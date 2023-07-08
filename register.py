@@ -14,8 +14,8 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY')
 app.config['DEBUG_TB_INTERCEPT_REDIRECTS'] = False
 
-app.config['MAIL_SERVER']='smtp-relay.sendinblue.com'
-app.config['MAIL_PORT'] = 465
+app.config['MAIL_SERVER']= os.environ.get('SMTP_RELAY')
+app.config['MAIL_PORT'] = os.environ.get('MAIL_PORT')
 app.config['MAIL_USERNAME'] = os.environ.get('SMTP_ACCT')
 app.config['MAIL_PASSWORD'] = os.environ.get('SMTP_KEY')
 app.config['MAIL_USE_TLS'] = False
