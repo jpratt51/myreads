@@ -1,6 +1,6 @@
 # myreads.
 
-A personal library app to keep a record of books you've read/want to read. 
+A personal library app to keep a record of books you've read/want to read. Utilizes [Open Library API](https://openlibrary.org/developers/api?ref=apilist.fun) to access book data.
 
 ## Project Description
 
@@ -152,6 +152,6 @@ myreads. allows users to:
 
 - Run `python -m unittest` on command prompt 
 
-## Heroku
+## Render
 
-View this website at [myreads.herokuapp.com](myreads.herokuapp.com)
+View this website at [myreads-8o75.onrender.com/](https://myreads-8o75.onrender.com/)
