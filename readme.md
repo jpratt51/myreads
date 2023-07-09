@@ -126,7 +126,7 @@ myreads. allows users to:
 - Install [Python](https://www.python.org/downloads/)
 - Download [PostgreSQL](https://www.enterprisedb.com/downloads/postgres-postgresql-downloads?gclid=CjwKCAiArNOeBhAHEiwAze_nKP-iOLHK_JbdU0WcIg-GYNorum7ajI6ApZ5ZYO8K1OJNTiWcxu5gkhoCn30QAvD_BwE)
 - Code editor such as [VS Code](https://code.visualstudio.com/download)
-- An SMTP email account, such as with [SendInBlue](https://account-app.sendinblue.com/account/register/)
+- An SMTP email account, such as with [Brevo](https://app.brevo.com/)
 
 ## Setup
 
@@ -136,7 +136,7 @@ myreads. allows users to:
 - Run `git clone` this repository and `cd` into the project root.
 - Open the project app.py file in your code editor.
     - On line 18 of the app.py file, replace 'myreads' with 'test_db'. Do the same for line 10 of account.py, line 14 of book.py, line 12 of bookshelf.py, line 11 of favorite.py, line 14 of password.py and line 12 of register.py 
-    - On line 20 of the app.py file, change 'app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY')' to 'app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'secretkey')' or set whatever secret key you like. Follow this same step for line 12 of account.py, line 16 of book.py, line 14 of bookshelf.py, line 13 of favorite.py, line 16 of password.py and line 14 of register.py
+    - On line 20 of the app.py file, change 'app.config['SECRET_KEY'] = os.getenv('SECRET_KEY')' to 'app.config['SECRET_KEY'] = os.getenv('SECRET_KEY', 'secretkey')' or set whatever secret key you like. Follow this same step for line 12 of account.py, line 16 of book.py, line 14 of bookshelf.py, line 13 of favorite.py, line 16 of password.py and line 14 of register.py
     - On line 17 of register.py, change the mail server to your smtp email server
     - On line 19 of register.py, add a default mail username as your smtp email address
     - On line 20 of register.py, add a default mail password as your smtp email password
